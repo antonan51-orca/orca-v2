@@ -1,0 +1,2895 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ORCA - Agence Vidéo + Acquisition Payante</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        :root {
+            --bg-cream: #FEF7ED;
+            --bg-white: #FFFFFF;
+            --text-dark: #1A1A1A;
+            --text-muted: #6B7280;
+            --primary: #F59E0B;
+            --border-light: #F3F4F6;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-cream);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+
+        header#site-header {
+            position: fixed;
+            top: 16px;
+            left: 0;
+            right: 0;
+            z-index: 9999;
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            display: flex;
+            justify-content: center;
+            pointer-events: none;
+        }
+
+        header#site-header .nav-pill {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            max-width: 940px;
+            width: 95%;
+            height: 58px;
+            padding: 10px 8px;
+            background: rgba(255, 254, 252, 0.24);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 756px;
+            border: 1px solid rgba(112, 112, 112, 0.16);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.09);
+            pointer-events: all;
+        }
+
+        header#site-header .nav-pill .nav-brand {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            text-decoration: none;
+            margin-right: auto;
+            padding-left: 16px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        header#site-header .nav-pill .nav-brand .brand-diamond {
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        header#site-header .nav-pill nav a {
+            color: var(--text-dark);
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            padding: 6px 12px;
+            border-radius: 756px;
+            transition: background 0.2s, color 0.2s;
+            white-space: nowrap;
+        }
+
+        header#site-header .nav-pill nav a:hover {
+            background: rgba(0, 0, 0, 0.06);
+        }
+
+        header#site-header .nav-pill nav a.nav-active {
+            color: var(--primary);
+        }
+
+        header#site-header .nav-pill .nav-cta {
+            display: inline-flex;
+            align-items: center;
+            background: #131313;
+            color: #fff;
+            font-size: 13px;
+            font-weight: 500;
+            padding: 9px 18px;
+            border-radius: 756px;
+            border: none;
+            cursor: pointer;
+            margin-left: auto;
+            margin-right: 4px;
+            white-space: nowrap;
+            transition: background 0.2s;
+        }
+
+        header#site-header .nav-pill .nav-cta:hover {
+            background: #2a2a2a;
+        }
+
+        .floating-cta {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 40;
+            animation: pulse-float 3s infinite;
+            font-size: 1.5rem;
+            width: 56px;
+            height: 56px;
+            padding: 0;
+        }
+
+        @keyframes pulse-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .pill {
+            display: inline-flex;
+            padding: 0.5rem 1.2rem;
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            min-height: 44px;
+            align-items: center;
+            min-width: fit-content;
+            color: var(--text-dark);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .pill-active {
+            background: var(--primary);
+            color: var(--text-dark);
+            border-color: var(--primary);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 2rem;
+            min-height: 48px;
+            background: var(--primary);
+            color: var(--text-dark);
+            border: none;
+            border-radius: 9999px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            transform: scale(1.03);
+            box-shadow: 0 10px 30px rgba(245, 158, 11, 0.25);
+            background: #D97706;
+        }
+
+        .btn:focus {
+            outline: 2px solid #D97706;
+            outline-offset: 2px;
+        }
+
+        /* Navbar CTA - plus petit */
+        header .btn {
+            padding: 0.5rem 1.25rem;
+            font-size: 0.875rem;
+            min-height: 40px;
+        }
+
+        /* Small CTA (qualification cards) */
+        #qualification .btn {
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+            min-height: 40px;
+        }
+
+        /* Mobile responsive pour les CTA du contenu SEULEMENT (pas navbar) */
+        @media (max-width: 768px) {
+            section .btn:not(.floating-cta) {
+                width: 100%;
+                max-width: min(90%, 340px);
+                margin-left: auto;
+                margin-right: auto;
+                display: block;
+            }
+            /* Le CTA navbar DOIT rester caché sur mobile (hidden md:inline-block fait le job) */
+            header .btn {
+                width: auto;
+                max-width: none;
+            }
+        }
+
+        /* Centrage CTA dans le formulaire */
+        #booking-form .btn {
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+
+        .btn-white {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-white:hover {
+            background: var(--bg-cream);
+        }
+
+        .section-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .section-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .video-placeholder {
+            background: linear-gradient(135deg, #1F2937 0%, #111827 100%);
+            aspect-ratio: 16 / 9;
+            border-radius: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            position: relative;
+        }
+
+        .play-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+        }
+
+        .play-icon::after {
+            content: '▶';
+            margin-left: 4px;
+        }
+
+        /* === TIMELINE V2 — Amber/Cream Zigzag === */
+        .tl-container {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .tl-line-bg, .tl-line-fill {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            transform: translateX(-50%);
+        }
+        .tl-line-bg { background: var(--border-light); z-index: 0; }
+        .tl-line-fill { background: #FBBF24; z-index: 1; height: 0%; transition: height 0.1s linear; }
+
+        .tl-step {
+            display: grid;
+            grid-template-columns: 1fr 40px 1fr;
+            align-items: start;
+            position: relative;
+            min-height: 120px;
+            margin-bottom: 48px;
+        }
+        .tl-dot {
+            grid-column: 2;
+            width: 18px;
+            height: 18px;
+            background: white;
+            border: 3px solid var(--border-light);
+            border-radius: 50%;
+            z-index: 10;
+            margin: 24px auto 0;
+            transition: all 0.4s cubic-bezier(.34,1.56,.64,1);
+        }
+        .tl-dot.active {
+            background: #FBBF24;
+            border-color: #FBBF24;
+            transform: scale(1.3);
+            box-shadow: 0 0 0 6px rgba(251,191,36,0.15);
+        }
+        .tl-card {
+            border-radius: 16px;
+            padding: 24px 28px;
+            background: var(--bg-cream);
+            border: 1px solid var(--border-light);
+            color: var(--text-muted);
+            will-change: opacity;
+            opacity: 0.25;
+            transition: background 0.5s ease-out, color 0.5s ease-out, box-shadow 0.5s ease-out, border-color 0.5s ease-out;
+        }
+        .tl-card.active {
+            background: #FEF3C7;
+            color: var(--text-dark);
+            border-color: #FBBF24;
+            box-shadow: 0 8px 24px rgba(251,191,36,0.15);
+        }
+        .tl-card.visible {
+            opacity: 1;
+        }
+        .tl-card .tl-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 6px;
+            transition: color 0.5s ease-out;
+        }
+        .tl-card.active .tl-title { color: var(--text-dark); }
+        .tl-card .tl-desc {
+            font-size: 0.95rem;
+            line-height: 1.65;
+            transition: color 0.5s ease-out;
+        }
+        .tl-card.active .tl-desc { color: rgba(0,0,0,0.7); }
+        .tl-step-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: rgba(251,191,36,0.12);
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #D97706;
+            margin-right: 8px;
+            transition: background 0.5s ease-out, color 0.5s ease-out;
+        }
+        .tl-card.active .tl-step-num {
+            background: rgba(0,0,0,0.12);
+            color: var(--text-dark);
+        }
+        /* Zigzag: odd steps card on right, even on left */
+        .tl-step.step-right .tl-card { grid-column: 3; }
+        .tl-step.step-right .tl-empty { grid-column: 1; }
+        .tl-step.step-left .tl-card { grid-column: 1; text-align: right; }
+        .tl-step.step-left .tl-empty { grid-column: 3; }
+        .tl-step.step-left .tl-title-row { justify-content: flex-end; }
+        .tl-title-row { display: flex; align-items: center; margin-bottom: 6px; }
+
+        /* FAQ Tabs */
+        .faq-tab {
+            position: relative;
+            overflow: hidden;
+            white-space: nowrap;
+            border-radius: 8px;
+            border: 1px solid var(--border-light);
+            padding: 6px 16px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            background: transparent;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .faq-tab:hover {
+            color: var(--text-dark);
+        }
+
+        .faq-tab.active {
+            background: linear-gradient(90deg, var(--primary), rgba(245,158,11,0.8));
+            color: var(--text-dark);
+            border-color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* FAQ Items */
+        .faq-item {
+            border-radius: 12px;
+            border: 1px solid var(--border-light);
+            background: white;
+            transition: background 0.3s ease;
+            overflow: hidden;
+        }
+
+        .faq-item.open {
+            background: rgba(245, 158, 11, 0.04);
+        }
+
+        .faq-trigger {
+            display: flex;
+            width: 100%;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 1.25rem 1.5rem;
+            text-align: left;
+            background: none;
+            border: none;
+            cursor: pointer;
+            min-height: 56px;
+        }
+
+        .faq-question {
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: color 0.3s ease;
+        }
+
+        .faq-item.open .faq-question {
+            color: var(--text-dark);
+        }
+
+        .faq-icon {
+            flex-shrink: 0;
+            color: var(--text-muted);
+            transition: transform 0.2s ease, color 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .faq-item.open .faq-icon {
+            transform: rotate(45deg);
+            color: var(--text-dark);
+        }
+
+        .faq-answer {
+            height: 0;
+            overflow: hidden;
+            transition: height 0.3s ease, margin-bottom 0.3s ease;
+            padding: 0 1.5rem;
+            margin-bottom: 0;
+        }
+
+        .faq-item.open .faq-answer {
+            margin-bottom: 1rem;
+        }
+
+        .faq-answer p {
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        /* FAQ item hidden by filter */
+        .faq-item.faq-hidden {
+            display: none;
+        }
+
+        .icon {
+            font-size: 1.5rem;
+        }
+
+        /* Scrolling Testimonial Columns */
+        .testimonial-card {
+            padding: 1.5rem;
+            border-radius: 1.25rem;
+            border: 1px solid #e5e7eb;
+            background: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: default;
+            min-width: 100%;
+        }
+
+        .testimonial-card:hover {
+            transform: scale(1.02) translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+
+        @keyframes scrollUp {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-50%); }
+        }
+
+        @keyframes logoScroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        @keyframes logoScrollReverse {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(0); }
+        }
+        .client-logo {
+            height: 60px;
+            width: auto;
+            object-fit: contain;
+            opacity: 0.85;
+            user-select: none;
+            pointer-events: none;
+            flex-shrink: 0;
+            border-radius: 8px;
+        }
+        .logo-slider-track:hover {
+            animation-play-state: paused;
+        }
+
+        .testimonial-scroll {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .testimonial-col:hover .testimonial-scroll {
+            animation-play-state: paused;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            transition: all 0.3s ease;
+            min-height: 48px;
+            font-size: 16px;
+            width: 100%;
+            border: 1px solid var(--border-light);
+            border-radius: 0.5rem;
+            padding: 0.75rem 1rem;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+        }
+
+        input[type="text"]:hover,
+        input[type="email"]:hover,
+        textarea:hover {
+            border-color: #D1D5DB;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+.bento-item {
+            background: white;
+            border: 1px solid var(--border-light);
+            padding: 2rem;
+            border-radius: 1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+        }
+
+        .bento-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Large text items — normal font, no spanning */
+        .bento-item.bento-text {
+            background: var(--bg-cream);
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .portfolio-card {
+            background: white;
+            border: 1px solid var(--border-light);
+            border-radius: 1rem;
+            padding: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .portfolio-card-content {
+            padding: 1rem;
+        }
+
+        .portfolio-card p {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        /* Video card styles */
+        .video-card {
+            position: relative;
+            width: 254px;
+            height: 453px;
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            background: #f3f4f6;
+        }
+
+        .video-card video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .video-play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 56px;
+            height: 56px;
+            background: rgba(255,255,255,0.25);
+            backdrop-filter: blur(4px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            pointer-events: none;
+        }
+
+        .video-card:hover .video-play-btn {
+            background: rgba(255,255,255,0.4);
+            transform: translate(-50%, -50%) scale(1.08);
+        }
+
+        .video-card.playing .video-play-btn {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .video-card.loading .video-play-btn {
+            opacity: 0;
+        }
+
+        .video-loader {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 44px;
+            height: 44px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-top-color: #F59E0B;
+            border-radius: 50%;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+        }
+
+        .video-card.loading .video-loader {
+            opacity: 1;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        .video-mute-btn {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            width: 34px;
+            height: 34px;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .video-card.playing .video-mute-btn {
+            opacity: 1;
+        }
+
+        .video-card.playing:hover .video-mute-btn {
+            opacity: 1;
+        }
+
+        #portfolio-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .portfolio-item {
+            flex-shrink: 0;
+        }
+
+        .qualification-card {
+            cursor: pointer;
+            background: white;
+            border: 1px solid var(--border-light);
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            min-height: 100%;
+        }
+
+        /* Qualification — exact replica of Agence Short .fait_section */
+        /* Short: .fait_wrapper: flex, gap:70px, align-items:flex-start, padding:70px 70px 56px, height:951px */
+        /* Short: .left_wrapper: sticky, top:252px, w:309px, h:161px */
+        /* Short: .explain_block: flex, column, gap:70px, h:825px */
+        /* Short: .explain_block_solo: bg:rgb(249,249,249), border-radius:15px, padding:42px */
+        .qual-layout {
+            display: flex;
+            gap: 70px;
+            align-items: flex-start;
+            padding: 70px 70px 56px;
+            height: 1050px; /* ~951px for 3 cards, scaled up for 4 */
+        }
+        .qual-sticky-left {
+            position: sticky;
+            top: 252px;
+            width: 309px;
+            flex-shrink: 0;
+        }
+        .qual-cards-col {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 70px;
+        }
+        .qual-scroll-card {
+            opacity: 0;
+            will-change: opacity;
+            background: #ffffff;
+            border-radius: 15px;
+            padding: 42px;
+            transition: none;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+        .qual-scroll-card:first-child {
+            opacity: 1; /* First card visible by default */
+        }
+
+        @media (max-width: 768px) {
+            .qual-layout {
+                flex-direction: column !important;
+                gap: 0.75rem !important;
+                height: auto !important;
+                padding: 1.5rem 1rem !important;
+            }
+            .qual-sticky-left {
+                position: static !important;
+                width: 100% !important;
+                text-align: center;
+                padding: 2rem 0;
+            }
+            .qual-scroll-card {
+                opacity: 1 !important;
+            }
+        }
+
+        .qualification-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .case-study-card {
+            background: white;
+            border: 1px solid var(--border-light);
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .case-study-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        #mobile-menu {
+            display: none;
+            position: fixed;
+            top: 82px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 92%;
+            max-width: 420px;
+            background: rgba(255, 254, 252, 0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(112, 112, 112, 0.16);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+            flex-direction: column;
+            padding: 1rem;
+            gap: 0.25rem;
+            z-index: 9998;
+        }
+
+        #mobile-menu.open {
+            display: flex;
+        }
+
+        #mobile-menu a {
+            padding: 0.75rem 1rem;
+            color: var(--text-dark);
+            text-decoration: none;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            min-height: 48px;
+            display: flex;
+            align-items: center;
+        }
+
+        #mobile-menu a:hover {
+            background: var(--bg-cream);
+            color: var(--primary);
+        }
+
+        #mobile-menu a:focus {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+        }
+
+        #mobile-menu .btn {
+            width: 100%;
+            text-align: center;
+        }
+
+        nav a:focus {
+            outline: 2px solid var(--primary);
+            outline-offset: 4px;
+            border-radius: 4px;
+        }
+
+        /* Mobile-optimized font sizes */
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.75rem !important;
+                line-height: 1.2;
+            }
+            h2 {
+                font-size: 1.4rem !important;
+            }
+        }
+
+        /* Mobile portfolio carousel with scroll-snap */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.25rem;
+            }
+            h2 {
+                font-size: 1.875rem;
+            }
+
+            /* Portfolio carousel mobile optimization */
+            #portfolio-carousel {
+                scroll-snap-type: x mandatory;
+                scroll-behavior: smooth;
+                padding-bottom: 1rem;
+            }
+            #portfolio-carousel .flex-shrink-0 {
+                scroll-snap-align: start;
+            }
+
+            /* Reduce portfolio card width on mobile */
+            .flex-shrink-0.w-80 {
+                width: calc(100vw - 2rem);
+                max-width: 90vw;
+                min-width: calc(100vw - 2rem);
+            }
+
+            /* Timeline V2 mobile */
+            .tl-step {
+                grid-template-columns: 28px 1fr !important;
+                gap: 0 12px !important;
+                margin-bottom: 32px !important;
+                min-height: auto !important;
+            }
+            .tl-line-bg, .tl-line-fill {
+                left: 14px !important;
+            }
+            .tl-dot {
+                grid-column: 1 !important;
+                grid-row: 1 !important;
+                width: 14px; height: 14px;
+                margin-top: 18px;
+                align-self: start;
+            }
+            .tl-step.step-left .tl-card,
+            .tl-step.step-right .tl-card {
+                grid-column: 2 !important;
+                grid-row: 1 !important;
+                text-align: left !important;
+            }
+            .tl-step .tl-empty { display: none !important; }
+            .tl-step.step-left .tl-title-row { justify-content: flex-start !important; }
+            .bento-grid {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto;
+            }
+            /* bento grid mobile — single column */
+            .floating-cta {
+                bottom: 1rem;
+                right: 1rem;
+                width: 48px;
+                height: 48px;
+                font-size: 1.25rem;
+            }
+
+            /* Mobile hamburger button sizing */
+            #hamburger-menu {
+                min-height: 48px;
+                min-width: 48px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 0.5rem;
+            }
+
+            /* Mobile method timeline simplification */
+            #method-timeline {
+                height: auto !important;
+            }
+
+            /* ===== QUALIFICATION MOBILE ===== */
+            /* Override inline font-size on qual heading */
+            .qual-sticky-left h2 {
+                font-size: 1.6rem !important;
+                text-align: center;
+            }
+            /* Reduce card padding on mobile (inline 42px is too much) */
+            .qual-scroll-card {
+                padding: 24px !important;
+                border-radius: 12px !important;
+            }
+            .qual-scroll-card h3 {
+                font-size: 1rem !important;
+            }
+
+            /* ===== LOGO SLIDER MOBILE ===== */
+            .logo-slider-track {
+                gap: 24px !important;
+            }
+            .logo-slider-track img {
+                height: 28px !important;
+            }
+
+            /* ===== TESTIMONIALS MOBILE ===== */
+            .testimonial-col {
+                max-width: 100% !important;
+            }
+
+            /* ===== BENTO GRID MOBILE ===== */
+            .bento-item {
+                padding: 1.25rem !important;
+            }
+            .bento-item h3 {
+                font-size: 1.1rem !important;
+            }
+
+            /* ===== CASE STUDIES MOBILE ===== */
+            .case-study-card {
+                padding: 1.25rem !important;
+            }
+
+            /* ===== PRE-FOOTER CTA MOBILE ===== */
+            section:last-of-type h2,
+            section:last-of-type p {
+                text-align: center;
+            }
+
+            /* ===== FOOTER MOBILE ===== */
+            footer {
+                margin-left: 0.5rem !important;
+                margin-right: 0.5rem !important;
+                margin-bottom: 0.5rem !important;
+                border-radius: 1rem !important;
+            }
+            footer .grid {
+                grid-template-columns: 1fr !important;
+                gap: 2rem !important;
+            }
+
+            /* ===== MOBILE MENU ANIMATION ===== */
+            #mobile-menu.open {
+                animation: fadeInDown 0.25s ease-out;
+            }
+            @keyframes fadeInDown {
+                from { opacity: 0; transform: translateX(-50%) translateY(-8px); }
+                to { opacity: 1; transform: translateX(-50%) translateY(0); }
+            }
+
+            /* ===== NAV PILL MOBILE ===== */
+            header#site-header .nav-pill {
+                width: 92% !important;
+                height: 52px !important;
+                padding: 8px 4px !important;
+            }
+            header#site-header .nav-pill .nav-brand {
+                font-size: 1.1rem !important;
+                padding-left: 14px !important;
+            }
+
+            /* ===== FAQ MOBILE ===== */
+            .faq-trigger {
+                padding: 1rem 1.25rem !important;
+                font-size: 0.9rem !important;
+            }
+            .faq-answer {
+                padding: 0 1.25rem !important;
+                font-size: 0.9rem !important;
+            }
+            .faq-tab {
+                font-size: 0.8rem !important;
+                padding: 0.4rem 0.9rem !important;
+            }
+
+            /* ===== BOOKING FORM MOBILE ===== */
+            #rdv h2 {
+                font-size: 1.5rem !important;
+            }
+
+            /* ===== GENERAL MOBILE SPACING ===== */
+            .py-20 {
+                padding-top: 3rem !important;
+                padding-bottom: 3rem !important;
+            }
+            .mb-12 {
+                margin-bottom: 2rem !important;
+            }
+            .mb-14 {
+                margin-bottom: 2rem !important;
+            }
+
+            /* ===== HERO MOBILE ===== */
+            #accueil {
+                padding-top: 100px !important;
+                padding-bottom: 2.5rem !important;
+            }
+            #accueil .pill {
+                font-size: 0.75rem;
+            }
+            .hero-floating-icons .floating-icon {
+                width: 36px !important;
+                height: 36px !important;
+                border-radius: 10px !important;
+            }
+            .hero-floating-icons .floating-icon svg {
+                width: 16px !important;
+                height: 16px !important;
+            }
+
+            /* ===== STATS SECTION MOBILE ===== */
+            .count-up-wrapper .text-4xl {
+                font-size: 2rem !important;
+            }
+
+            /* ===== TIMELINE CARD MOBILE ===== */
+            .tl-card {
+                padding: 16px 18px !important;
+                font-size: 0.875rem;
+            }
+            .tl-title {
+                font-size: 1rem !important;
+            }
+            .tl-step-num {
+                width: 28px !important;
+                height: 28px !important;
+                font-size: 0.75rem !important;
+            }
+
+            /* ===== VIDEO PLACEHOLDER MOBILE ===== */
+            .video-placeholder {
+                min-height: 200px !important;
+            }
+
+            /* ===== INCLUDED SECTION MOBILE ===== */
+            .max-w-3xl .bg-white.rounded-2xl {
+                padding: 1.5rem !important;
+            }
+        }
+
+        /* Final CTA mobile */
+        @media (max-width: 768px) {
+            .final-cta-section {
+                padding: 40px 12px 0 !important;
+            }
+            .final-cta-container {
+                padding: 48px 20px 40px !important;
+                border-radius: 20px !important;
+            }
+            .floating-icon {
+                width: 38px !important;
+                height: 38px !important;
+                border-radius: 10px !important;
+            }
+            .floating-icon svg {
+                width: 18px !important;
+                height: 18px !important;
+            }
+        }
+
+        /* Disable hover transforms on touch devices (prevents sticky hover) */
+        @media (hover: none) {
+            .qualification-card:hover,
+            .case-study-card:hover,
+            .bento-item:hover {
+                transform: none !important;
+                box-shadow: none !important;
+            }
+        }
+
+        /* Tablet optimizations */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .flex-shrink-0.w-80 {
+                width: 70vw;
+            }
+        }
+
+        /* Ensure sections have proper side padding on mobile */
+        @media (max-width: 768px) {
+            section {
+                padding-left: 1rem !important;
+                padding-right: 1rem !important;
+            }
+
+            .overflow-x-auto {
+                overflow-x: auto;
+                scroll-behavior: smooth;
+                -webkit-overflow-scrolling: touch;
+            }
+        }
+
+        /* Count-up animation container */
+        .count-up-wrapper {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .count-up-wrapper.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+
+        /* Floating social icons animations */
+        @keyframes floatIcon1 {
+            0%, 100% { transform: rotate(-12deg) translateY(0); }
+            50% { transform: rotate(-12deg) translateY(-10px); }
+        }
+        @keyframes floatIcon2 {
+            0%, 100% { transform: rotate(8deg) translateY(0); }
+            50% { transform: rotate(8deg) translateY(-12px); }
+        }
+        @keyframes floatIcon3 {
+            0%, 100% { transform: rotate(-6deg) translateY(0); }
+            50% { transform: rotate(-6deg) translateY(-8px); }
+        }
+        @keyframes floatIcon4 {
+            0%, 100% { transform: rotate(10deg) translateY(0); }
+            50% { transform: rotate(10deg) translateY(-11px); }
+        }
+        @keyframes floatIcon5 {
+            0%, 100% { transform: rotate(5deg) translateY(0); }
+            50% { transform: rotate(5deg) translateY(-9px); }
+        }
+        @keyframes floatIcon6 {
+            0%, 100% { transform: rotate(-8deg) translateY(0); }
+            50% { transform: rotate(-8deg) translateY(-10px); }
+        }
+
+        /* Scroll-spy active state */
+        nav a.nav-active {
+            color: var(--primary) !important;
+            text-decoration: none;
+        }
+
+        /* Mobile nav active state */
+        .mobile-link.nav-active {
+            color: var(--primary);
+            text-decoration: underline;
+            text-decoration-thickness: 2px;
+            text-underline-offset: 4px;
+        }
+        </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header id="site-header">
+        <div class="nav-pill">
+            <a href="#accueil" class="nav-brand"><span class="brand-diamond">&#9670;</span> ORCA</a>
+            <nav class="hidden md:flex items-center" style="gap: 4px;">
+                <a href="#accueil">Accueil</a>
+                <a href="#portfolio">Réalisations</a>
+                <a href="#cas">Études de cas</a>
+                <a href="#avis">Avis clients</a>
+                <a href="#faq">FAQ</a>
+            </nav>
+            <button class="nav-cta hidden md:inline-flex scroll-to-booking">Prendre rendez-vous</button>
+            <button class="md:hidden" id="hamburger-menu" style="background:none;border:none;font-size:1.5rem;cursor:pointer;padding:8px 12px;pointer-events:all;color:var(--text-dark);">☰</button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" style="pointer-events:all;">
+            <a href="#accueil" class="mobile-link">Accueil</a>
+            <a href="#portfolio" class="mobile-link">Réalisations</a>
+            <a href="#cas" class="mobile-link">Études de cas</a>
+            <a href="#avis" class="mobile-link">Avis clients</a>
+            <a href="#faq" class="mobile-link">FAQ</a>
+            <a href="#rdv" class="btn scroll-to-booking">Prendre rendez-vous</a>
+        </div>
+    </header>
+
+    <!-- FLOATING CTA -->
+    <button class="floating-cta btn scroll-to-booking" aria-label="Prendre un rendez-vous" style="width:auto;height:auto;padding:14px 24px;font-size:0.95rem;border-radius:756px;">Je me lance ⚡️</button>
+
+    <!-- HERO -->
+    <section id="accueil" style="padding-top: 120px; padding-bottom: 60px;" class="text-center px-4">
+        <div class="max-w-5xl mx-auto relative">
+
+            <!-- Floating emojis (hero) -->
+            <div class="hero-floating-icons" style="position: absolute; inset: -40px; pointer-events: none; overflow: visible;">
+                <span style="position: absolute; top: 2%; left: 5%; font-size: 36px; animation: floatIcon1 6s ease-in-out infinite;">&#128640;</span>
+                <span style="position: absolute; top: 8%; right: 8%; font-size: 32px; animation: floatIcon2 7s ease-in-out infinite;">&#128200;</span>
+                <span style="position: absolute; top: 55%; left: -2%; font-size: 34px; animation: floatIcon3 5.5s ease-in-out infinite;">&#127919;</span>
+                <span style="position: absolute; bottom: 2%; right: 5%; font-size: 30px; animation: floatIcon5 7.5s ease-in-out infinite;">&#128293;</span>
+                <span style="position: absolute; top: 35%; right: -1%; font-size: 32px; animation: floatIcon6 6s ease-in-out infinite 0.5s;">&#129309;</span>
+                <span style="position: absolute; bottom: 15%; left: 8%; font-size: 30px; animation: floatIcon4 6.5s ease-in-out infinite;">&#127942;</span>
+                <span style="position: absolute; top: 20%; left: -3%; font-size: 28px; animation: floatIcon2 8s ease-in-out infinite 1s;">&#9889;</span>
+                <span style="position: absolute; bottom: 8%; right: 25%; font-size: 28px; animation: floatIcon1 7s ease-in-out infinite 0.5s;">&#11088;</span>
+            </div>
+
+            <!-- Content -->
+            <div style="position: relative; z-index: 2;">
+                <!-- Pill badge -->
+                <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.25); border-radius: 50px; padding: 8px 22px; margin-bottom: 28px;">
+                    <span style="font-size: 14px; color: var(--primary);">&#9670;</span>
+                    <span style="font-size: 14px; font-weight: 600; color: var(--text-dark);">Agence vidéo + acquisition payante</span>
+                </div>
+
+                <h1 style="font-size: clamp(2.5rem, 5.5vw, 4rem); line-height: 1.15; font-weight: 800; color: var(--text-dark); margin-bottom: 20px;">
+                    Fais grandir ta marque grâce à<br>
+                    <span style="font-style: italic; color: var(--primary);">des vidéos performantes</span>
+                </h1>
+
+                <p style="color: var(--text-muted); font-size: 1.1rem; max-width: 550px; margin: 0 auto 36px; line-height: 1.6;">
+                    Création vidéo + Meta/Google Ads + tracking. Une équipe orientée résultats.
+                </p>
+
+                <div style="display: flex; justify-content: center; margin-bottom: 40px;">
+                    <button class="scroll-to-booking" style="display: inline-flex; align-items: center; gap: 10px; background: #F59E0B; color: #fff; font-weight: 700; font-size: 1.1rem; padding: 18px 40px; border-radius: 60px; border: none; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 20px rgba(245,158,11,0.35);" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 30px rgba(245,158,11,0.45)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 20px rgba(245,158,11,0.35)'">
+                        Prendre rendez-vous
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </button>
+                </div>
+
+                <div class="flex gap-4 justify-center flex-wrap">
+                    <div class="pill">Sans blabla.</div>
+                    <div class="pill">Itérations rapides.</div>
+                    <div class="pill">Publicité + organique.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VIDEO + LOGOS -->
+    <section class="py-20 px-4 bg-white">
+        <div class="max-w-6xl mx-auto section-reveal">
+            <div class="video-placeholder mb-6">
+                <div class="play-icon"></div>
+            </div>
+            <p class="text-center text-gray-500 mt-2">
+                Des marques ambitieuses nous confient leur croissance.
+            </p>
+
+            <!-- Infinite Logo Slider — Row 1 -->
+            <div class="mt-10 overflow-hidden" style="-webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent); mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);">
+                <div class="logo-slider-track" style="display: flex; align-items: center; gap: 56px; width: max-content; animation: logoScroll 35s linear infinite;">
+                    <img src="logos/71959883_101761944564437_7020843989204992000_n.jpg" alt="Nosh Hawaiian Touch" class="client-logo">
+                    <img src="logos/244444437_1349336328817896_5487244153107712918_n.jpg" alt="Marcel & Jane" class="client-logo">
+                    <img src="logos/299483779_487868573343840_7431016412289561886_n.jpg" alt="Taj Mahal" class="client-logo">
+                    <img src="logos/359160604_685872333584826_5109670712479899155_n.png" alt="Eat Sushi" class="client-logo">
+                    <img src="logos/409971506_865823928880855_1274361475880375612_n.jpg" alt="La Fée de la Gourmandise" class="client-logo">
+                    <img src="logos/416257754_390526380218525_8208089314362866060_n.jpg" alt="Amici" class="client-logo">
+                    <img src="logos/459570092_122108711516515744_5790865408511594232_n.jpg" alt="Ringside Arena" class="client-logo">
+                    <img src="logos/505194527_122094558296909782_3524573587408508443_n.jpg" alt="Le Domaine de la Moivre" class="client-logo">
+                    <img src="logos/526861251_122133164018830746_735298459760468557_n.jpg" alt="Rénovert" class="client-logo">
+                    <!-- Duplicate for seamless loop -->
+                    <img src="logos/71959883_101761944564437_7020843989204992000_n.jpg" alt="Nosh Hawaiian Touch" class="client-logo">
+                    <img src="logos/244444437_1349336328817896_5487244153107712918_n.jpg" alt="Marcel & Jane" class="client-logo">
+                    <img src="logos/299483779_487868573343840_7431016412289561886_n.jpg" alt="Taj Mahal" class="client-logo">
+                    <img src="logos/359160604_685872333584826_5109670712479899155_n.png" alt="Eat Sushi" class="client-logo">
+                    <img src="logos/409971506_865823928880855_1274361475880375612_n.jpg" alt="La Fée de la Gourmandise" class="client-logo">
+                    <img src="logos/416257754_390526380218525_8208089314362866060_n.jpg" alt="Amici" class="client-logo">
+                    <img src="logos/459570092_122108711516515744_5790865408511594232_n.jpg" alt="Ringside Arena" class="client-logo">
+                    <img src="logos/505194527_122094558296909782_3524573587408508443_n.jpg" alt="Le Domaine de la Moivre" class="client-logo">
+                    <img src="logos/526861251_122133164018830746_735298459760468557_n.jpg" alt="Rénovert" class="client-logo">
+                </div>
+            </div>
+
+            <!-- Infinite Logo Slider — Row 2 (reverse direction) -->
+            <div class="mt-6 overflow-hidden" style="-webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent); mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);">
+                <div class="logo-slider-track" style="display: flex; align-items: center; gap: 56px; width: max-content; animation: logoScrollReverse 38s linear infinite;">
+                    <img src="logos/600892257_1568298721415792_6734124888375817142_n.jpg" alt="Gym K" class="client-logo">
+                    <img src="logos/610768925_122109777831149758_104879265694412912_n.jpg" alt="ERRIC" class="client-logo">
+                    <img src="logos/c82b79980e2996658037a101bffd289e1f293ac5.png" alt="Italian Trattoria" class="client-logo">
+                    <img src="logos/ed1e27_128ee5a572834e8a82ab8b7e300b28a9~mv2.png" alt="Come Prima" class="client-logo">
+                    <img src="logos/FredericLenoir.jpg" alt="Frédéric Lenoir" class="client-logo">
+                    <img src="logos/logo-noir.png" alt="Safety Risk Services" class="client-logo">
+                    <img src="logos/Satoriz_New_(quadri)-5F3A01.jpg" alt="Satoriz" class="client-logo">
+                    <img src="logos/delices-papilles.png" alt="Aux Délices des Papilles" class="client-logo">
+                    <img src="logos/Zenith-esthetic-Cernay-les-Reims.jpeg" alt="Zenith Esthétique" class="client-logo">
+                    <!-- Duplicate for seamless loop -->
+                    <img src="logos/600892257_1568298721415792_6734124888375817142_n.jpg" alt="Gym K" class="client-logo">
+                    <img src="logos/610768925_122109777831149758_104879265694412912_n.jpg" alt="ERRIC" class="client-logo">
+                    <img src="logos/c82b79980e2996658037a101bffd289e1f293ac5.png" alt="Italian Trattoria" class="client-logo">
+                    <img src="logos/ed1e27_128ee5a572834e8a82ab8b7e300b28a9~mv2.png" alt="Come Prima" class="client-logo">
+                    <img src="logos/FredericLenoir.jpg" alt="Frédéric Lenoir" class="client-logo">
+                    <img src="logos/logo-noir.png" alt="Safety Risk Services" class="client-logo">
+                    <img src="logos/Satoriz_New_(quadri)-5F3A01.jpg" alt="Satoriz" class="client-logo">
+                    <img src="logos/delices-papilles.png" alt="Aux Délices des Papilles" class="client-logo">
+                    <img src="logos/Zenith-esthetic-Cernay-les-Reims.jpeg" alt="Zenith Esthétique" class="client-logo">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- KEY METRICS -->
+    <section class="py-20 px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="section-reveal bg-white border border-gray-200 rounded-2xl p-8 md:p-12">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                    <div class="count-up-wrapper text-center">
+                        <div class="text-4xl md:text-6xl font-bold text-amber-500 mb-2" data-count-target="50" data-count-suffix="+">0+</div>
+                        <p class="text-gray-600 font-medium">Créas produites</p>
+                    </div>
+                    <div class="count-up-wrapper text-center">
+                        <div class="text-4xl md:text-6xl font-bold text-amber-500 mb-2" data-count-target="3" data-count-suffix="x">0x</div>
+                        <p class="text-gray-600 font-medium">ROAS moyen clients</p>
+                    </div>
+                    <div class="count-up-wrapper text-center">
+                        <div class="text-4xl md:text-6xl font-bold text-amber-500 mb-2" data-count-target="12" data-count-suffix="+">0+</div>
+                        <p class="text-gray-600 font-medium">Marques accompagnées</p>
+                    </div>
+                    <div class="count-up-wrapper text-center">
+                        <div class="text-4xl md:text-6xl font-bold text-amber-500 mb-2" data-count-target="95" data-count-suffix="%">0%</div>
+                        <p class="text-gray-600 font-medium">Taux de satisfaction</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PORTFOLIO / REALISATIONS -->
+    <div id="realisations"></div>
+    <div id="portfolio"></div>
+    <section class="py-20 px-4 bg-white">
+        <div class="max-w-6xl mx-auto section-reveal">
+            <h2 class="text-3xl md:text-5xl font-bold mb-8 text-center">Nos <span style="color: var(--primary); font-style: italic;">réalisations</span></h2>
+            <div class="flex gap-3 mb-8 flex-wrap justify-center">
+                <button class="pill pill-active filter-btn" data-filter="ads">Formats Ads</button>
+                <button class="pill filter-btn" data-filter="organic">Formats Organique</button>
+            </div>
+            <div style="position: relative;">
+                <div class="overflow-x-auto pb-4" id="portfolio-scroll" style="scroll-behavior: smooth; -webkit-overflow-scrolling: touch; scrollbar-width: none;">
+                    <div class="flex gap-5 min-w-min" id="portfolio-carousel">
+                        <!-- ADS -->
+                        <div class="flex-shrink-0 portfolio-item" data-filter="ads">
+                            <div class="video-card" onclick="toggleVideo(this)">
+                                <video muted loop playsinline preload="none" data-src="videos/RA-Ringside%20arena%20V8.mp4"></video>
+                                <div class="video-play-btn"><svg width="28" height="28" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+                                <div class="video-loader"></div>
+                                <div class="video-mute-btn" onclick="event.stopPropagation();toggleMute(this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="white" class="muted-icon"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.796 8.796 0 0021 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06a8.99 8.99 0 003.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="white" class="unmuted-icon" style="display:none"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg></div>
+                            </div>
+                            <p class="mt-2 text-sm font-semibold">Ringside Arena</p>
+                        </div>
+                        <!-- ORGANIC -->
+                        <div class="flex-shrink-0 portfolio-item" data-filter="organic">
+                            <div class="video-card" onclick="toggleVideo(this)">
+                                <video muted loop playsinline preload="none" data-src="videos/CM-Pr%C3%A9paration%20Boeuf%20Angus%20V7.mp4"></video>
+                                <div class="video-play-btn"><svg width="28" height="28" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+                                <div class="video-loader"></div>
+                                <div class="video-mute-btn" onclick="event.stopPropagation();toggleMute(this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="white" class="muted-icon"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.796 8.796 0 0021 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06a8.99 8.99 0 003.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="white" class="unmuted-icon" style="display:none"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg></div>
+                            </div>
+                            <p class="mt-2 text-sm font-semibold">Chez Minnà</p>
+                        </div>
+                        <!-- ADS -->
+                        <div class="flex-shrink-0 portfolio-item" data-filter="ads">
+                            <div class="video-card" onclick="toggleVideo(this)">
+                                <video muted loop playsinline preload="none" data-src="videos/EP-Etape%20r%C3%A9paration%20de%20pneu%20V1.mp4"></video>
+                                <div class="video-play-btn"><svg width="28" height="28" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+                                <div class="video-loader"></div>
+                                <div class="video-mute-btn" onclick="event.stopPropagation();toggleMute(this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="white" class="muted-icon"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.796 8.796 0 0021 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06a8.99 8.99 0 003.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="white" class="unmuted-icon" style="display:none"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg></div>
+                            </div>
+                            <p class="mt-2 text-sm font-semibold">ERRIC Pneu</p>
+                        </div>
+                        <!-- ORGANIC -->
+                        <div class="flex-shrink-0 portfolio-item" data-filter="organic">
+                            <div class="video-card" onclick="toggleVideo(this)">
+                                <video muted loop playsinline preload="none" data-src="videos/DR%20-%20Comparaison%20rue%20V6.mp4"></video>
+                                <div class="video-play-btn"><svg width="28" height="28" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+                                <div class="video-loader"></div>
+                                <div class="video-mute-btn" onclick="event.stopPropagation();toggleMute(this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="white" class="muted-icon"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.796 8.796 0 0021 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06a8.99 8.99 0 003.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="white" class="unmuted-icon" style="display:none"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg></div>
+                            </div>
+                            <p class="mt-2 text-sm font-semibold">Dolce Restaurante</p>
+                        </div>
+                        <!-- ADS -->
+                        <div class="flex-shrink-0 portfolio-item" data-filter="ads">
+                            <div class="video-card" onclick="toggleVideo(this)">
+                                <video muted loop playsinline preload="none" data-src="videos/FL-Sens%20de%20ma%20vie%20V2.mp4"></video>
+                                <div class="video-play-btn"><svg width="28" height="28" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+                                <div class="video-loader"></div>
+                                <div class="video-mute-btn" onclick="event.stopPropagation();toggleMute(this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="white" class="muted-icon"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.796 8.796 0 0021 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06a8.99 8.99 0 003.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="white" class="unmuted-icon" style="display:none"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg></div>
+                            </div>
+                            <p class="mt-2 text-sm font-semibold">Frédéric Lenoir</p>
+                        </div>
+                        <!-- ORGANIC -->
+                        <div class="flex-shrink-0 portfolio-item" data-filter="organic">
+                            <div class="video-card" onclick="toggleVideo(this)">
+                                <video muted loop playsinline preload="none" data-src="videos/DN%20-%20Cigne%20Noir%20V9.mp4"></video>
+                                <div class="video-play-btn"><svg width="28" height="28" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+                                <div class="video-loader"></div>
+                                <div class="video-mute-btn" onclick="event.stopPropagation();toggleMute(this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="white" class="muted-icon"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.796 8.796 0 0021 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06a8.99 8.99 0 003.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="white" class="unmuted-icon" style="display:none"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg></div>
+                            </div>
+                            <p class="mt-2 text-sm font-semibold">Domaine de Neuville</p>
+                        </div>
+                        <!-- ADS -->
+                        <div class="flex-shrink-0 portfolio-item" data-filter="ads">
+                            <div class="video-card" onclick="toggleVideo(this)">
+                                <video muted loop playsinline preload="none" data-src="videos/3%20Raison%20Eat%20Sushi%20V2.mp4"></video>
+                                <div class="video-play-btn"><svg width="28" height="28" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+                                <div class="video-loader"></div>
+                                <div class="video-mute-btn" onclick="event.stopPropagation();toggleMute(this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="white" class="muted-icon"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.796 8.796 0 0021 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06a8.99 8.99 0 003.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="white" class="unmuted-icon" style="display:none"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg></div>
+                            </div>
+                            <p class="mt-2 text-sm font-semibold">Eat Sushi</p>
+                        </div>
+                        <!-- ORGANIC -->
+                        <div class="flex-shrink-0 portfolio-item" data-filter="organic">
+                            <div class="video-card" onclick="toggleVideo(this)">
+                                <video muted loop playsinline preload="none" data-src="videos/PF-Concept%20restau%20V3.mp4"></video>
+                                <div class="video-play-btn"><svg width="28" height="28" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+                                <div class="video-loader"></div>
+                                <div class="video-mute-btn" onclick="event.stopPropagation();toggleMute(this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="white" class="muted-icon"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.796 8.796 0 0021 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06a8.99 8.99 0 003.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="white" class="unmuted-icon" style="display:none"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg></div>
+                            </div>
+                            <p class="mt-2 text-sm font-semibold">Paradis du Fruit</p>
+                        </div>
+                        <!-- ADS -->
+                        <div class="flex-shrink-0 portfolio-item" data-filter="ads">
+                            <div class="video-card" onclick="toggleVideo(this)">
+                                <video muted loop playsinline preload="none" data-src="videos/MT%203%20espace%20club%20V6.mp4"></video>
+                                <div class="video-play-btn"><svg width="28" height="28" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+                                <div class="video-loader"></div>
+                                <div class="video-mute-btn" onclick="event.stopPropagation();toggleMute(this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="white" class="muted-icon"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.796 8.796 0 0021 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06a8.99 8.99 0 003.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="white" class="unmuted-icon" style="display:none"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg></div>
+                            </div>
+                            <p class="mt-2 text-sm font-semibold">Gym K</p>
+                        </div>
+                        <!-- ORGANIC -->
+                        <div class="flex-shrink-0 portfolio-item" data-filter="organic">
+                            <div class="video-card" onclick="toggleVideo(this)">
+                                <video muted loop playsinline preload="none" data-src="videos/Tu%20mange%20quoi%20DOLCE.mp4"></video>
+                                <div class="video-play-btn"><svg width="28" height="28" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+                                <div class="video-loader"></div>
+                                <div class="video-mute-btn" onclick="event.stopPropagation();toggleMute(this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="white" class="muted-icon"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.796 8.796 0 0021 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06a8.99 8.99 0 003.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="white" class="unmuted-icon" style="display:none"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg></div>
+                            </div>
+                            <p class="mt-2 text-sm font-semibold">Dolce Restaurante</p>
+                        </div>
+                        <!-- ORGANIC -->
+                        <div class="flex-shrink-0 portfolio-item" data-filter="organic">
+                            <div class="video-card" onclick="toggleVideo(this)">
+                                <video muted loop playsinline preload="none" data-src="videos/PP-Pr%C3%A9paration%20cocktail%20Italicus%20Margarita%20V2.mp4"></video>
+                                <div class="video-play-btn"><svg width="28" height="28" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+                                <div class="video-loader"></div>
+                                <div class="video-mute-btn" onclick="event.stopPropagation();toggleMute(this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="white" class="muted-icon"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.796 8.796 0 0021 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06a8.99 8.99 0 003.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="white" class="unmuted-icon" style="display:none"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg></div>
+                            </div>
+                            <p class="mt-2 text-sm font-semibold">Pepita</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Carousel arrows -->
+                <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 12px;">
+                    <button onclick="document.getElementById('portfolio-scroll').scrollBy({left:-300,behavior:'smooth'})" style="width: 42px; height: 42px; border-radius: 50%; border: 1px solid #e5e7eb; background: white; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s;" onmouseover="this.style.borderColor='#F59E0B'" onmouseout="this.style.borderColor='#e5e7eb'">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+                    </button>
+                    <button onclick="document.getElementById('portfolio-scroll').scrollBy({left:300,behavior:'smooth'})" style="width: 42px; height: 42px; border-radius: 50%; border: 1px solid #e5e7eb; background: white; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s;" onmouseover="this.style.borderColor='#F59E0B'" onmouseout="this.style.borderColor='#e5e7eb'">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                    </button>
+                </div>
+            </div>
+            <!-- Discover more button -->
+            <div style="display: flex; justify-content: center; margin-top: 28px;">
+                <a href="portfolio.html" id="discover-more-btn" style="display: inline-flex; align-items: center; gap: 8px; background: white; border: 1.5px solid #e5e7eb; color: var(--text-dark); font-weight: 600; font-size: 0.95rem; padding: 14px 32px; border-radius: 756px; cursor: pointer; transition: all 0.2s; text-decoration: none;" onmouseover="this.style.borderColor='#F59E0B';this.style.color='#F59E0B'" onmouseout="this.style.borderColor='#e5e7eb';this.style.color='var(--text-dark)'">
+                    Découvrir des exemples
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- DIFFERENTIATION -->
+    <section class="py-20 px-4 bg-orange-50">
+        <div class="max-w-6xl mx-auto section-reveal">
+            <h2 class="text-3xl md:text-5xl font-bold mb-12 text-center">Comment on se différencie</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="qualification-card">
+                    <h3 class="text-xl font-bold mb-2">Approche holistique</h3>
+                    <p class="text-gray-600">On ne sépare pas la création du pilotage. Chaque vidéo est pensée pour performer sur vos canaux payants comme gratuits.</p>
+                </div>
+                <div class="qualification-card">
+                    <h3 class="text-xl font-bold mb-2">Obsession pour les données</h3>
+                    <p class="text-gray-600">Pas de supposition. On teste, on mesure, on optimise. Vos décisions sont basées sur vos vrais chiffres.</p>
+                </div>
+                <div class="qualification-card">
+                    <h3 class="text-xl font-bold mb-2">Scaling intelligent</h3>
+                    <p class="text-gray-600">On construit un système où chaque euro investi en ads et chaque contenu organique se renforcent pour croître sans plafonner.</p>
+                </div>
+                <div class="qualification-card">
+                    <h3 class="text-xl font-bold mb-2">Itérations rapides</h3>
+                    <p class="text-gray-600">On comprend votre besoin, on produit, on lance et on ajuste — le tout en quelques semaines.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- QUALIFICATION — Sticky Left + Crossfade Right (Agence Short style) -->
+    <section id="qualification" style="background: var(--bg-cream);">
+        <div class="max-w-6xl mx-auto">
+            <div class="qual-layout">
+                <!-- Left: Sticky heading -->
+                <div class="qual-sticky-left">
+                    <h2 style="font-size: 2.2rem; font-weight: 800; line-height: 1.2; color: #1a1a2e;">
+                        👉 ORCA est fait<br>
+                        <span style="color: #F59E0B; font-style: italic;">pour vous</span> si...
+                    </h2>
+                </div>
+                <!-- Right: Cards overlapping in sticky container -->
+                <div class="qual-cards-col">
+                    <div class="qual-scroll-card">
+                        <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 10px;">
+                            <div style="width: 44px; height: 44px; background: rgba(245,158,11,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0;">💼</div>
+                            <h3 style="font-size: 1.15rem; font-weight: 700; color: #1a1a2e;">Vous faites appel à des <em style="color: #F59E0B; font-style: italic;">grosses agences</em></h3>
+                        </div>
+                        <p style="color: var(--text-muted); line-height: 1.7; font-size: 0.95rem;">Résultat : Vous payez 1000€ la vidéo pour 2000 vues. Pas optimisées pour la performance, aucun retour sur investissement.</p>
+                    </div>
+                    <div class="qual-scroll-card">
+                        <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 10px;">
+                            <div style="width: 44px; height: 44px; background: rgba(245,158,11,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0;">✍️</div>
+                            <h3 style="font-size: 1.15rem; font-weight: 700; color: #1a1a2e;">Vous essayez de produire <em style="color: #F59E0B; font-style: italic;">en interne</em></h3>
+                        </div>
+                        <p style="color: var(--text-muted); line-height: 1.7; font-size: 0.95rem;">Résultat : Limités en créativité, beaucoup de temps perdu. Vous pourriez faire bien mieux.</p>
+                    </div>
+                    <div class="qual-scroll-card">
+                        <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 10px;">
+                            <div style="width: 44px; height: 44px; background: rgba(245,158,11,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0;">🤳</div>
+                            <h3 style="font-size: 1.15rem; font-weight: 700; color: #1a1a2e;">Vous collaborez avec des <em style="color: #F59E0B; font-style: italic;">créateurs UGC</em></h3>
+                        </div>
+                        <p style="color: var(--text-muted); line-height: 1.7; font-size: 0.95rem;">Résultat : Des vidéos classiques que toutes les marques peuvent produire. Bloqués sur un seul format.</p>
+                    </div>
+                    <div class="qual-scroll-card">
+                        <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 10px;">
+                            <div style="width: 44px; height: 44px; background: rgba(245,158,11,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0;">📉</div>
+                            <h3 style="font-size: 1.15rem; font-weight: 700; color: #1a1a2e;">Vous n'avez <em style="color: #F59E0B; font-style: italic;">aucune stratégie</em> de contenu</h3>
+                        </div>
+                        <p style="color: var(--text-muted); line-height: 1.7; font-size: 0.95rem;">Résultat : Pas de plan, pas de data, pas d'itérations. Vos coûts montent et rien n'est stable.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CASE STUDIES -->
+    <section id="cas" class="py-20 px-4 bg-orange-50">
+        <div class="max-w-6xl mx-auto section-reveal">
+            <h2 class="text-3xl md:text-5xl font-bold mb-4 text-center">Est-ce que ça marche vraiment ?</h2>
+            <p class="text-center text-gray-600 mb-12 text-lg">Voici nos 3 derniers succès.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="count-up-wrapper case-study-card">
+                    <h3 class="text-xl font-bold mb-4">NovaSkin</h3>
+                    <p class="text-3xl font-bold text-amber-500 mb-2" data-count-target="285" data-count-prefix="+" data-count-suffix="%">+0%</p>
+                    <p class="text-gray-600 font-medium mb-4">Croissance des ventes en 3 mois.</p>
+                    <p class="text-gray-500 text-sm">De 2 vidéos testées à 8 vidéos à fort ROAS en 3 mois avec une méthode structurée et des itérations rapides.</p>
+                </div>
+                <div class="count-up-wrapper case-study-card">
+                    <h3 class="text-xl font-bold mb-4">Hëlios</h3>
+                    <p class="text-3xl font-bold text-amber-500 mb-2" data-count-target="3" data-count-prefix="x">x0</p>
+                    <p class="text-gray-600 font-medium mb-4">Multiplication du ROAS en 5 mois.</p>
+                    <p class="text-gray-500 text-sm">Passage d'une approche créa pure à une stratégie intégrée création + pilotage. Résultat : multiplication par 3 du ROAS.</p>
+                </div>
+                <div class="count-up-wrapper case-study-card">
+                    <h3 class="text-xl font-bold mb-4">Maison Lune</h3>
+                    <p class="text-3xl font-bold text-amber-500 mb-2" data-count-target="5" data-count-prefix="x">x0</p>
+                    <p class="text-gray-600 font-medium mb-4">Scaling du budget publicitaire sans friction.</p>
+                    <p class="text-gray-500 text-sm">Passage de 500€/jour à 2500€/jour en 6 mois avec une multiplication par 5 du budget grâce à une création continue et optimisée.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- METHOD / TIMELINE V2 — Violet Zigzag, Natural Scroll -->
+    <section id="method" class="py-20 px-4 bg-white">
+        <div class="max-w-6xl mx-auto section-reveal">
+            <h2 class="text-3xl md:text-5xl font-bold mb-14 text-center">La méthode pour avoir des <em style="color: var(--primary); font-style: italic;">résultats</em></h2>
+
+            <div class="tl-container" id="method-timeline">
+                <div class="tl-line-bg"></div>
+                <div class="tl-line-fill" id="tl-fill"></div>
+
+                <!-- 1 — Stratégie (droite) -->
+                <div class="tl-step step-right">
+                    <div class="tl-empty"></div>
+                    <div class="tl-dot"></div>
+                    <div class="tl-card">
+                        <div class="tl-title-row"><span class="tl-step-num">1</span><span class="tl-title">Stratégie 🎯💫</span></div>
+                        <p class="tl-desc">Notre équipe créative définit les angles principaux à attaquer et les différents formats à produire.</p>
+                    </div>
+                </div>
+                <!-- 2 — Concepts (gauche) -->
+                <div class="tl-step step-left">
+                    <div class="tl-card">
+                        <div class="tl-title-row"><span class="tl-step-num">2</span><span class="tl-title">Concepts 😎</span></div>
+                        <p class="tl-desc">Nous vous proposons des idées originales et performantes. C'est vous qui choisissez vos concepts favoris.</p>
+                    </div>
+                    <div class="tl-dot"></div>
+                    <div class="tl-empty"></div>
+                </div>
+                <!-- 3 — Scripts (droite) -->
+                <div class="tl-step step-right">
+                    <div class="tl-empty"></div>
+                    <div class="tl-dot"></div>
+                    <div class="tl-card">
+                        <div class="tl-title-row"><span class="tl-step-num">3</span><span class="tl-title">Scripts ✍️</span></div>
+                        <p class="tl-desc">Nous rédigeons des scripts optimisés à 100% pour la performance.</p>
+                    </div>
+                </div>
+                <!-- 4 — Acteurs (gauche) -->
+                <div class="tl-step step-left">
+                    <div class="tl-card">
+                        <div class="tl-title-row"><span class="tl-step-num">4</span><span class="tl-title">Acteurs 👱👱‍♀️</span></div>
+                        <p class="tl-desc">Nous vous proposons des acteurs en fonction de votre cible. +100 créateurs de tout âge sont disponibles.</p>
+                    </div>
+                    <div class="tl-dot"></div>
+                    <div class="tl-empty"></div>
+                </div>
+                <!-- 5 — Tournage (droite) -->
+                <div class="tl-step step-right">
+                    <div class="tl-empty"></div>
+                    <div class="tl-dot"></div>
+                    <div class="tl-card">
+                        <div class="tl-title-row"><span class="tl-step-num">5</span><span class="tl-title">Tournage 🎬</span></div>
+                        <p class="tl-desc">Nous organisons et gérons le tournage en interne. Notre équipe est composée de 4 personnes qui maîtrisent la production de A à Z.</p>
+                    </div>
+                </div>
+                <!-- 6 — Montage (gauche) -->
+                <div class="tl-step step-left">
+                    <div class="tl-card">
+                        <div class="tl-title-row"><span class="tl-step-num">6</span><span class="tl-title">Montage 🖥️</span></div>
+                        <p class="tl-desc">Montage complet sous 2 à 10 jours après le jour du tournage.</p>
+                    </div>
+                    <div class="tl-dot"></div>
+                    <div class="tl-empty"></div>
+                </div>
+                <!-- 7 — Livraison (droite) -->
+                <div class="tl-step step-right">
+                    <div class="tl-empty"></div>
+                    <div class="tl-dot"></div>
+                    <div class="tl-card">
+                        <div class="tl-title-row"><span class="tl-step-num">7</span><span class="tl-title">Livraison 💌</span></div>
+                        <p class="tl-desc">Livraison des vidéos et modifications illimitées jusqu'à satisfaction.</p>
+                    </div>
+                </div>
+                <!-- 8 — Satisfaction (gauche) -->
+                <div class="tl-step step-left">
+                    <div class="tl-card">
+                        <div class="tl-title-row"><span class="tl-step-num">8</span><span class="tl-title">Satisfaction ❤️</span></div>
+                        <p class="tl-desc">Vous avez des vidéos performantes, nous avons une belle étude de cas. Tout le monde repart gagnant.</p>
+                    </div>
+                    <div class="tl-dot"></div>
+                    <div class="tl-empty"></div>
+                </div>
+                <!-- 9 — Analyse (droite) -->
+                <div class="tl-step step-right">
+                    <div class="tl-empty"></div>
+                    <div class="tl-dot"></div>
+                    <div class="tl-card">
+                        <div class="tl-title-row"><span class="tl-step-num">9</span><span class="tl-title">Analyse 📊</span></div>
+                        <p class="tl-desc">On analyse les performances des vidéos après le lancement et on vous fournit un reporting complet !</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ACCOMPAGNEMENT -->
+    <section class="py-20 px-4 bg-orange-50">
+        <div class="max-w-6xl mx-auto section-reveal">
+            <h2 class="text-3xl md:text-5xl font-bold mb-4 text-center">De la créa qui performe. Et un pilotage qui suit.</h2>
+            <p class="text-center text-gray-600 mb-12 text-lg">Voici ce qui est inclus</p>
+            <div class="max-w-3xl mx-auto bg-white rounded-2xl p-8 md:p-12 border border-gray-200">
+                <h3 class="text-xl font-bold mb-6">Ce qui est inclus</h3>
+                <ul class="space-y-4">
+                    <li class="flex items-start gap-3">
+                        <span class="text-amber-500 font-bold">✓</span>
+                        <span class="text-gray-700">Audit vidéo complet de votre situation</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-amber-500 font-bold">✓</span>
+                        <span class="text-gray-700">Création de 4 à 8 vidéos par mois</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-amber-500 font-bold">✓</span>
+                        <span class="text-gray-700">Setup et gestion des campagnes Meta/Google</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-amber-500 font-bold">✓</span>
+                        <span class="text-gray-700">Reporting mensuel avec insights</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-amber-500 font-bold">✓</span>
+                        <span class="text-gray-700">Calls hebdomadaires de pilotage</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-amber-500 font-bold">✓</span>
+                        <span class="text-gray-700">Optimisation continue des performances</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- REVIEWS / AVIS CLIENTS — Scrolling Columns -->
+    <section id="avis" class="py-20 px-4 bg-white relative overflow-hidden">
+        <div class="max-w-6xl mx-auto section-reveal">
+            <!-- Header -->
+            <div class="flex flex-col items-center mb-12">
+                <span class="inline-block border border-gray-200 py-1 px-4 rounded-full text-xs font-semibold tracking-wide uppercase text-gray-500 bg-gray-50 mb-6">Témoignages</span>
+                <h2 class="text-3xl md:text-5xl font-bold text-center mb-4">Ils en parlent mieux que nous</h2>
+                <p class="text-center text-gray-500 text-lg max-w-md">Découvrez pourquoi nos clients nous font confiance pour leur croissance.</p>
+            </div>
+
+            <!-- Scrolling Testimonial Columns -->
+            <div class="flex justify-center gap-6 max-h-[700px] overflow-hidden" style="-webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent); mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);">
+
+                <!-- Column 1 -->
+                <div class="testimonial-col flex-1 max-w-xs overflow-hidden">
+                    <div class="testimonial-scroll" style="animation: scrollUp 20s linear infinite;">
+                        <!-- Card 1 -->
+                        <div class="testimonial-card mb-6">
+                            <p class="text-gray-600 leading-relaxed mb-6">"ORCA a transformé notre approche vidéo. En 3 mois, on a eu nos meilleures performances ever."</p>
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center text-sm font-bold text-amber-700">MD</div>
+                                <div>
+                                    <p class="font-semibold text-sm text-gray-900">Marie D.</p>
+                                    <p class="text-xs text-gray-500">Fondatrice, NovaSkin</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Card 2 -->
+                        <div class="testimonial-card mb-6">
+                            <p class="text-gray-600 leading-relaxed mb-6">"Le tracking propre a changé notre façon de piloter les campagnes. On ne travaille plus à l'aveugle."</p>
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-sm font-bold text-green-700">MP</div>
+                                <div>
+                                    <p class="font-semibold text-sm text-gray-900">Marc P.</p>
+                                    <p class="text-xs text-gray-500">Gérant, Atelier Vert</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Card 3 -->
+                        <div class="testimonial-card mb-6">
+                            <p class="text-gray-600 leading-relaxed mb-6">"Un vrai gain de temps. ORCA gère tout de A à Z et on reçoit des résultats concrets chaque semaine."</p>
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-sm font-bold text-purple-700">SB</div>
+                                <div>
+                                    <p class="font-semibold text-sm text-gray-900">Sarah B.</p>
+                                    <p class="text-xs text-gray-500">CMO, FitnessPro</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Duplicated for seamless loop -->
+                        <div class="testimonial-card mb-6">
+                            <p class="text-gray-600 leading-relaxed mb-6">"ORCA a transformé notre approche vidéo. En 3 mois, on a eu nos meilleures performances ever."</p>
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center text-sm font-bold text-amber-700">MD</div>
+                                <div>
+                                    <p class="font-semibold text-sm text-gray-900">Marie D.</p>
+                                    <p class="text-xs text-gray-500">Fondatrice, NovaSkin</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testimonial-card mb-6">
+                            <p class="text-gray-600 leading-relaxed mb-6">"Le tracking propre a changé notre façon de piloter les campagnes. On ne travaille plus à l'aveugle."</p>
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-sm font-bold text-green-700">MP</div>
+                                <div>
+                                    <p class="font-semibold text-sm text-gray-900">Marc P.</p>
+                                    <p class="text-xs text-gray-500">Gérant, Atelier Vert</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testimonial-card mb-6">
+                            <p class="text-gray-600 leading-relaxed mb-6">"Un vrai gain de temps. ORCA gère tout de A à Z et on reçoit des résultats concrets chaque semaine."</p>
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-sm font-bold text-purple-700">SB</div>
+                                <div>
+                                    <p class="font-semibold text-sm text-gray-900">Sarah B.</p>
+                                    <p class="text-xs text-gray-500">CMO, FitnessPro</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Column 2 (hidden on mobile) -->
+                <div class="testimonial-col flex-1 max-w-xs overflow-hidden hidden md:block">
+                    <div class="testimonial-scroll" style="animation: scrollUp 25s linear infinite;">
+                        <div class="testimonial-card mb-6">
+                            <p class="text-gray-600 leading-relaxed mb-6">"Avant, on n'avait que du blabla sur le contenu vidéo. Avec ORCA, chaque vidéo a un objectif clair et des résultats mesurables."</p>
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-sm font-bold text-blue-700">TP</div>
+                                <div>
+                                    <p class="font-semibold text-sm text-gray-900">Thomas P.</p>
+                                    <p class="text-xs text-gray-500">CEO, Hëlios</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testimonial-card mb-6">
+                            <p class="text-gray-600 leading-relaxed mb-6">"ORCA comprend vraiment ce que c'est que de scaler. Les vidéos sont pensées pour convertir, pas juste pour plaire."</p>
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center text-sm font-bold text-red-700">JR</div>
+                                <div>
+                                    <p class="font-semibold text-sm text-gray-900">Julien R.</p>
+                                    <p class="text-xs text-gray-500">Dir. Marketing, Ringside</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testimonial-card mb-6">
+                            <p class="text-gray-600 leading-relaxed mb-6">"On a enfin une agence qui comprend les deux mondes : le créatif et la data. Les résultats parlent d'eux-mêmes."</p>
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-teal-100 flex items-center justify-center text-sm font-bold text-teal-700">AC</div>
+                                <div>
+                                    <p class="font-semibold text-sm text-gray-900">Amina C.</p>
+                                    <p class="text-xs text-gray-500">E-commerce Manager</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Duplicated -->
+                        <div class="testimonial-card mb-6">
+                            <p class="text-gray-600 leading-relaxed mb-6">"Avant, on n'avait que du blabla sur le contenu vidéo. Avec ORCA, chaque vidéo a un objectif clair et des résultats mesurables."</p>
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-sm font-bold text-blue-700">TP</div>
+                                <div>
+                                    <p class="font-semibold text-sm text-gray-900">Thomas P.</p>
+                                    <p class="text-xs text-gray-500">CEO, Hëlios</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testimonial-card mb-6">
+                            <p class="text-gray-600 leading-relaxed mb-6">"ORCA comprend vraiment ce que c'est que de scaler. Les vidéos sont pensées pour convertir, pas juste pour plaire."</p>
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center text-sm font-bold text-red-700">JR</div>
+                                <div>
+                                    <p class="font-semibold text-sm text-gray-900">Julien R.</p>
+                                    <p class="text-xs text-gray-500">Dir. Marketing, Ringside</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testimonial-card mb-6">
+                            <p class="text-gray-600 leading-relaxed mb-6">"On a enfin une agence qui comprend les deux mondes : le créatif et la data. Les résultats parlent d'eux-mêmes."</p>
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-teal-100 flex items-center justify-center text-sm font-bold text-teal-700">AC</div>
+                                <div>
+                                    <p class="font-semibold text-sm text-gray-900">Amina C.</p>
+                                    <p class="text-xs text-gray-500">E-commerce Manager</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Column 3 (hidden on mobile + tablet) -->
+                <div class="testimonial-col flex-1 max-w-xs overflow-hidden hidden lg:block">
+                    <div class="testimonial-scroll" style="animation: scrollUp 22s linear infinite;">
+                        <div class="testimonial-card mb-6">
+                            <p class="text-gray-600 leading-relaxed mb-6">"Le ROAS qu'on a atteint avec ORCA, on le pensait impossible. L'équipe est vraiment réactive."</p>
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center text-sm font-bold text-pink-700">LM</div>
+                                <div>
+                                    <p class="font-semibold text-sm text-gray-900">Lisa M.</p>
+                                    <p class="text-xs text-gray-500">Growth Lead, Maison Lune</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testimonial-card mb-6">
+                            <p class="text-gray-600 leading-relaxed mb-6">"Enfin une agence qui parle données autant que créativité. On sait exactement où on va."</p>
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-sm font-bold text-indigo-700">LD</div>
+                                <div>
+                                    <p class="font-semibold text-sm text-gray-900">Léa D.</p>
+                                    <p class="text-xs text-gray-500">Fondatrice, La Fée Gourmande</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testimonial-card mb-6">
+                            <p class="text-gray-600 leading-relaxed mb-6">"Collaboration fluide, process clair, et surtout des vidéos qui convertissent. C'est rare."</p>
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-sm font-bold text-orange-700">FL</div>
+                                <div>
+                                    <p class="font-semibold text-sm text-gray-900">Frédéric L.</p>
+                                    <p class="text-xs text-gray-500">Auteur & Conférencier</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Duplicated -->
+                        <div class="testimonial-card mb-6">
+                            <p class="text-gray-600 leading-relaxed mb-6">"Le ROAS qu'on a atteint avec ORCA, on le pensait impossible. L'équipe est vraiment réactive."</p>
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center text-sm font-bold text-pink-700">LM</div>
+                                <div>
+                                    <p class="font-semibold text-sm text-gray-900">Lisa M.</p>
+                                    <p class="text-xs text-gray-500">Growth Lead, Maison Lune</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testimonial-card mb-6">
+                            <p class="text-gray-600 leading-relaxed mb-6">"Enfin une agence qui parle données autant que créativité. On sait exactement où on va."</p>
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-sm font-bold text-indigo-700">LD</div>
+                                <div>
+                                    <p class="font-semibold text-sm text-gray-900">Léa D.</p>
+                                    <p class="text-xs text-gray-500">Fondatrice, La Fée Gourmande</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testimonial-card mb-6">
+                            <p class="text-gray-600 leading-relaxed mb-6">"Collaboration fluide, process clair, et surtout des vidéos qui convertissent. C'est rare."</p>
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-sm font-bold text-orange-700">FL</div>
+                                <div>
+                                    <p class="font-semibold text-sm text-gray-900">Frédéric L.</p>
+                                    <p class="text-xs text-gray-500">Auteur & Conférencier</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-center mt-12 mb-8"><button class="btn scroll-to-booking">Prendre rendez-vous</button></div>
+        </div>
+    </section>
+
+    <!-- PROOF BLOCK / BENTO GRID -->
+    <section class="py-20 px-4 bg-orange-50">
+        <div class="max-w-5xl mx-auto section-reveal">
+            <h2 class="text-3xl md:text-5xl font-bold mb-4 text-center">On a l'expérience</h2>
+            <p class="text-gray-500 text-center mb-12">Les chiffres parlent d'eux-mêmes.</p>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+                <div class="bento-item text-center">
+                    <p class="text-3xl md:text-4xl font-bold text-amber-500 mb-1">8+</p>
+                    <p class="text-gray-600 text-sm font-medium">Années d'expérience</p>
+                </div>
+                <div class="bento-item text-center">
+                    <p class="text-3xl md:text-4xl font-bold text-amber-500 mb-1">50M+</p>
+                    <p class="text-gray-600 text-sm font-medium">De budget géré</p>
+                </div>
+                <div class="bento-item text-center">
+                    <p class="text-3xl md:text-4xl font-bold text-amber-500 mb-1">12+</p>
+                    <p class="text-gray-600 text-sm font-medium">Secteurs maîtrisés</p>
+                </div>
+                <div class="bento-item text-center">
+                    <p class="text-3xl md:text-4xl font-bold text-amber-500 mb-1">3.8/5</p>
+                    <p class="text-gray-600 text-sm font-medium">Satisfaction clients</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bento-item bento-text">
+                    <p class="text-lg font-semibold text-gray-800 mb-2">Expertise terrain</p>
+                    <p>Issus des meilleures agences du marché avec une obsession pour les résultats mesurables.</p>
+                </div>
+                <div class="bento-item bento-text">
+                    <p class="text-lg font-semibold text-gray-800 mb-2">Toujours à jour</p>
+                    <p>Formation continue sur les derniers algo de Meta et Google. Avant tout le monde.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="relative overflow-hidden py-20 px-4 bg-white">
+        <!-- Background glow effect -->
+        <span class="absolute left-1/2 -top-[350px] z-0 h-[500px] w-[600px] -translate-x-1/2 rounded-full" style="background: radial-gradient(circle, rgba(245,158,11,0.08) 0%, rgba(245,158,11,0.02) 60%, transparent 100%); filter: blur(60px);"></span>
+
+        <div class="relative z-10 max-w-3xl mx-auto section-reveal">
+            <!-- Header -->
+            <div class="flex flex-col items-center justify-center mb-8">
+                <span class="mb-4 font-medium text-sm" style="background: linear-gradient(90deg, var(--primary), rgba(245,158,11,0.6)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Questions fréquentes</span>
+                <h2 class="text-3xl md:text-5xl font-bold text-center">Vos questions, nos réponses</h2>
+            </div>
+
+            <!-- Category Tabs -->
+            <div class="flex flex-wrap items-center justify-center gap-3 mb-12" id="faq-tabs">
+                <button class="faq-tab active" data-category="services">Services</button>
+                <button class="faq-tab" data-category="moncase">Mon cas</button>
+                <button class="faq-tab" data-category="process">Processus</button>
+                <button class="faq-tab" data-category="results">Résultats</button>
+            </div>
+
+            <!-- FAQ Items -->
+            <div class="space-y-3" id="faq-list">
+                <!-- Q1 - services -->
+                <div class="faq-item" data-categories="all services">
+                    <button class="faq-trigger">
+                        <span class="faq-question">Vous faites juste de la vidéo ou aussi le pilotage pub ?</span>
+                        <span class="faq-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        </span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Les deux, et c'est notre force. On crée les vidéos ET on pilote leur diffusion sur Meta. Pas de ping-pong entre un vidéaste et un media buyer : tout est pensé ensemble, de l'écriture du script jusqu'à l'optimisation des campagnes. Résultat : des créas faites pour performer, pas juste pour être jolies.</p>
+                    </div>
+                </div>
+
+                <!-- Q2 - services -->
+                <div class="faq-item" data-categories="all services">
+                    <button class="faq-trigger">
+                        <span class="faq-question">Vous travaillez sur quelles plateformes ?</span>
+                        <span class="faq-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        </span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>On se concentre sur Meta (Facebook + Instagram). C'est la plateforme la plus puissante pour combiner vidéo et acquisition, avec un ciblage précis et un volume d'audience massif. Plutôt que de s'éparpiller, on maîtrise un canal à fond pour vous apporter des résultats concrets.</p>
+                    </div>
+                </div>
+
+                <!-- Q3 - moncase -->
+                <div class="faq-item" data-categories="all moncase">
+                    <button class="faq-trigger">
+                        <span class="faq-question">C'est adapté à mon secteur ?</span>
+                        <span class="faq-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        </span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Notre méthode repose sur des données et du testing, pas sur des recettes toutes faites. Que vous soyez coach, prestataire local, SaaS ou e-commerçant, on adapte les angles créatifs et les audiences à votre marché. Ce qui compte, c'est d'avoir une offre claire et la volonté de grandir.</p>
+                    </div>
+                </div>
+
+                <!-- Q4 - moncase -->
+                <div class="faq-item" data-categories="all moncase">
+                    <button class="faq-trigger">
+                        <span class="faq-question">J'ai déjà testé la pub seul et ça n'a pas marché. Pourquoi ce serait différent ?</span>
+                        <span class="faq-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        </span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>C'est le cas de beaucoup de nos clients. La différence : on ne booste pas des posts au hasard. On suit une méthodologie de testing systématique — accroches, formats, audiences — puis on double la mise sur ce qui fonctionne. La vidéo verticale pensée pour la pub, combinée à un pilotage data, change complètement la donne.</p>
+                    </div>
+                </div>
+
+                <!-- Q5 - moncase -->
+                <div class="faq-item" data-categories="all moncase">
+                    <button class="faq-trigger">
+                        <span class="faq-question">Je débute en publicité, c'est trop tôt pour moi ?</span>
+                        <span class="faq-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        </span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Au contraire, c'est le meilleur moment pour partir sur de bonnes bases. On voit trop d'entrepreneurs qui grillent du budget en testant seuls pendant des mois. Notre accompagnement vous fait gagner du temps et éviter les erreurs classiques. On vous guide étape par étape, même si vous n'avez jamais lancé une seule campagne.</p>
+                    </div>
+                </div>
+
+                <!-- Q6 - process -->
+                <div class="faq-item" data-categories="all process">
+                    <button class="faq-trigger">
+                        <span class="faq-question">Par où vous commencez ?</span>
+                        <span class="faq-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        </span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Par un appel stratégique gratuit. On analyse votre situation, vos objectifs et votre marché. Ensuite on vous propose un plan d'action personnalisé : formats vidéo, angles créatifs, stratégie de diffusion. Rien n'est lancé tant que vous n'avez pas validé.</p>
+                    </div>
+                </div>
+
+                <!-- Q7 - process -->
+                <div class="faq-item" data-categories="all process">
+                    <button class="faq-trigger">
+                        <span class="faq-question">Comment ça se passe concrètement au quotidien ?</span>
+                        <span class="faq-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        </span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Vous avez un interlocuteur dédié, un planning clair et des points réguliers. On vous partage les créas avant diffusion, les résultats en temps réel, et on ajuste ensemble. Vous gardez la main sur votre image — on s'occupe de l'exécution et de l'optimisation.</p>
+                    </div>
+                </div>
+
+                <!-- Q8 - process -->
+                <div class="faq-item" data-categories="all process">
+                    <button class="faq-trigger">
+                        <span class="faq-question">Je dois fournir quoi de mon côté ?</span>
+                        <span class="faq-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        </span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Le minimum : votre expertise sur votre offre et un peu de temps pour les validations. On s'occupe de l'écriture, du tournage ou montage et du pilotage. Si vous avez déjà des contenus ou des témoignages clients, c'est un bonus — mais ce n'est pas un prérequis.</p>
+                    </div>
+                </div>
+
+                <!-- Q9 - results -->
+                <div class="faq-item" data-categories="all results">
+                    <button class="faq-trigger">
+                        <span class="faq-question">En combien de temps on voit des résultats ?</span>
+                        <span class="faq-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        </span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Les premiers indicateurs arrivent dès les 2-3 premières semaines de test. L'objectif de cette phase, c'est d'identifier ce qui fonctionne. Ensuite, on optimise et on scale progressivement. Chaque semaine, on affine pour améliorer les performances.</p>
+                    </div>
+                </div>
+
+                <!-- Q10 - results -->
+                <div class="faq-item" data-categories="all results">
+                    <button class="faq-trigger">
+                        <span class="faq-question">Vous garantissez un ROI ?</span>
+                        <span class="faq-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        </span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>On ne vend pas de promesses magiques — et méfiez-vous de ceux qui le font. Ce qu'on garantit, c'est une méthode rigoureuse, des tests structurés et une optimisation continue basée sur vos données réelles. Nos clients restent parce que les résultats sont là, pas parce qu'ils y sont obligés.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BOOKING FORM / CTA -->
+    <section id="rdv" class="py-20 px-4 bg-orange-50">
+        <div class="max-w-2xl mx-auto section-reveal">
+            <div class="text-center mb-12">
+                <p class="text-5xl mb-4">😎</p>
+                <h2 class="text-3xl md:text-5xl font-bold mb-4">Prêt à vous développer ?</h2>
+                <p class="text-lg text-gray-600">Parlons de votre projet. 30 minutes pour comprendre vos enjeux et voir si on peut vous aider.</p>
+            </div>
+            <div id="scheduler-widget"></div>
+            <script src="https://scheduler-app-orpin-one.vercel.app/embed.js?v=2" data-form="discovery-call"></script>
+        </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="final-cta-section" style="padding: 60px 20px 0; background: var(--bg-cream);">
+        <div class="final-cta-container" style="max-width: 900px; margin: 0 auto; position: relative; background: #FFFDF8; border-radius: 28px; padding: 60px 40px 50px; text-align: center; overflow: visible; border: 1px solid rgba(245,158,11,0.12);">
+
+            <!-- Floating icons (CTA) — 1 Instagram, 1 Facebook, 1 YouTube + mini-cards stats -->
+            <div style="position: absolute; inset: -20px; pointer-events: none; overflow: visible;">
+                <!-- Instagram - top left -->
+                <div style="position: absolute; top: -14px; left: 6%; width: 52px; height: 52px; background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); border-radius: 14px; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(224,68,95,0.25); animation: floatIcon1 6s ease-in-out infinite;">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                </div>
+                <!-- Facebook - bottom right -->
+                <div style="position: absolute; bottom: -12px; right: 8%; width: 50px; height: 50px; background: #1877F2; border-radius: 14px; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(24,119,242,0.25); animation: floatIcon3 5.5s ease-in-out infinite;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                </div>
+                <!-- YouTube - left middle -->
+                <div style="position: absolute; top: 45%; left: -18px; width: 50px; height: 50px; background: #FF0000; border-radius: 14px; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(255,0,0,0.2); animation: floatIcon6 6s ease-in-out infinite 0.5s;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                </div>
+
+                <!-- Mini stat card: Abonnés — top right -->
+                <div style="position: absolute; top: -18px; right: 5%; background: white; border-radius: 14px; padding: 10px 16px; box-shadow: 0 6px 20px rgba(0,0,0,0.1); display: flex; align-items: center; gap: 10px; animation: floatIcon2 7s ease-in-out infinite; white-space: nowrap;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+                    <div style="line-height: 1.2;">
+                        <div style="font-size: 14px; font-weight: 800; color: #10B981;">+12.4K</div>
+                        <div style="font-size: 10px; color: #6B7280;">abonnés / mois</div>
+                    </div>
+                </div>
+
+                <!-- Mini stat card: CA — right middle -->
+                <div style="position: absolute; top: 20%; right: -28px; background: white; border-radius: 14px; padding: 10px 16px; box-shadow: 0 6px 20px rgba(0,0,0,0.1); display: flex; align-items: center; gap: 10px; animation: floatIcon5 7.5s ease-in-out infinite; white-space: nowrap;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                    <div style="line-height: 1.2;">
+                        <div style="font-size: 14px; font-weight: 800; color: #F59E0B;">+340%</div>
+                        <div style="font-size: 10px; color: #6B7280;">ROAS moyen</div>
+                    </div>
+                </div>
+
+                <!-- Mini stat card: Vues — bottom left (where the blue X was) -->
+                <div style="position: absolute; bottom: 12%; left: 5%; background: white; border-radius: 14px; padding: 10px 16px; box-shadow: 0 6px 20px rgba(0,0,0,0.1); display: flex; align-items: center; gap: 10px; animation: floatIcon4 6.5s ease-in-out infinite; white-space: nowrap; transform: rotate(6deg);">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8B5CF6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                    <div style="line-height: 1.2;">
+                        <div style="font-size: 14px; font-weight: 800; color: #8B5CF6;">2.8M</div>
+                        <div style="font-size: 10px; color: #6B7280;">vues / mois</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pill badge -->
+            <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.25); border-radius: 50px; padding: 8px 20px; margin-bottom: 28px;">
+                <span style="font-size: 14px;">&#9670;</span>
+                <span style="font-size: 14px; font-weight: 600; color: var(--text-dark);">Agence vidéo + acquisition payante</span>
+            </div>
+
+            <!-- Headline -->
+            <h2 style="font-size: clamp(1.8rem, 4vw, 2.8rem); line-height: 1.2; font-weight: 700; color: var(--text-dark); margin-bottom: 12px;">
+                Pas envie de laisser <br>
+                <span style="font-style: italic; color: #F59E0B;">du cash sur la table ?</span>
+            </h2>
+
+            <!-- Subtitle -->
+            <p style="color: var(--text-muted); font-size: 1.05rem; max-width: 500px; margin: 0 auto 32px; line-height: 1.6;">Chaque jour sans la bonne stratégie vidéo, c'est du budget qui s'envole.</p>
+
+            <!-- CTA Button -->
+            <div style="display: flex; justify-content: center;">
+                <button class="scroll-to-booking" style="display: inline-flex; align-items: center; gap: 10px; background: #F59E0B; color: #fff; font-weight: 700; font-size: 1.05rem; padding: 16px 36px; border-radius: 60px; border: none; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 20px rgba(245,158,11,0.35);" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 30px rgba(245,158,11,0.45)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 20px rgba(245,158,11,0.35)'">
+                    Réserver l'audit gratuit
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Amber bar -->
+        <div style="height: 6px; background: linear-gradient(90deg, #F59E0B, #D97706); border-radius: 3px; max-width: 900px; margin: 40px auto 0;"></div>
+    </section>
+
+    <!-- FOOTER — Hover Effect Inspired -->
+    <footer class="relative rounded-3xl overflow-hidden mx-4 md:mx-8 mb-4 md:mb-8" style="background: #0F0F11;">
+        <!-- Background gradient glow -->
+        <div class="absolute inset-0 z-0" style="background: radial-gradient(125% 125% at 50% 10%, rgba(15,15,17,0.4) 50%, rgba(245,158,11,0.15) 100%);"></div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-6 md:px-14 pt-14 pb-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-8 lg:gap-16 pb-12">
+                <!-- Brand -->
+                <div class="flex flex-col space-y-4">
+                    <div class="flex items-center space-x-2">
+                        <span class="text-3xl font-extrabold" style="color: #F59E0B;">&#9670;</span>
+                        <span class="text-white text-3xl font-bold">ORCA</span>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed">Agence vidéo + acquisition payante. Créa, performance et tracking réunis pour scaler votre marque.</p>
+                </div>
+
+                <!-- Navigation -->
+                <div>
+                    <h4 class="text-white text-lg font-semibold mb-6">Navigation</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="#accueil" class="hover:text-amber-400 transition-colors">Accueil</a></li>
+                        <li><a href="#portfolio" class="hover:text-amber-400 transition-colors">Portfolio</a></li>
+                        <li><a href="#cas" class="hover:text-amber-400 transition-colors">Études de cas</a></li>
+                        <li><a href="#avis" class="hover:text-amber-400 transition-colors">Avis clients</a></li>
+                        <li><a href="#faq" class="hover:text-amber-400 transition-colors">FAQ</a></li>
+                        <li><a href="#rdv" class="hover:text-amber-400 transition-colors">RDV</a></li>
+                    </ul>
+                </div>
+
+                <!-- Ressources -->
+                <div>
+                    <h4 class="text-white text-lg font-semibold mb-6">Ressources</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="#faq" class="hover:text-amber-400 transition-colors">FAQ</a></li>
+                        <li><a href="#cas" class="hover:text-amber-400 transition-colors">Cas d'études</a></li>
+                        <li class="relative">
+                            <a href="#rdv" class="hover:text-amber-400 transition-colors">Contact direct</a>
+                            <span class="absolute top-0 -right-3 w-2 h-2 rounded-full animate-pulse" style="background: #F59E0B;"></span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div>
+                    <h4 class="text-white text-lg font-semibold mb-6">Nous contacter</h4>
+                    <ul class="space-y-4 text-gray-400">
+                        <li class="flex items-center space-x-3">
+                            <svg width="18" height="18" fill="none" stroke="#F59E0B" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                            <a href="mailto:hello@orca-agency.fr" class="hover:text-amber-400 transition-colors">hello@orca-agency.fr</a>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <svg width="18" height="18" fill="none" stroke="#F59E0B" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+                            <span class="hover:text-amber-400 transition-colors">06 XX XX XX XX</span>
+                        </li>
+                    </ul>
+                    <!-- Social icons -->
+                    <div class="flex space-x-5 mt-6 text-gray-400">
+                        <a href="#" aria-label="Instagram" class="hover:text-amber-400 transition-colors">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+                        </a>
+                        <a href="#" aria-label="LinkedIn" class="hover:text-amber-400 transition-colors">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                        </a>
+                        <a href="#" aria-label="YouTube" class="hover:text-amber-400 transition-colors">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 2A29 29 0 001 11.75a29 29 0 00.46 5.33A2.78 2.78 0 003.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 001.94-2 29 29 0 00.46-5.25 29 29 0 00-.46-5.33z"/><polygon points="9.75,15.02 15.5,11.75 9.75,8.48"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="border-t border-gray-700 my-8">
+
+            <!-- Bottom bar -->
+            <div class="flex flex-col md:flex-row justify-between items-center text-sm text-gray-400 space-y-4 md:space-y-0">
+                <p>© 2026 ORCA. Tous droits réservés.</p>
+                <div class="flex gap-6">
+                    <a href="#" class="hover:text-amber-400 transition-colors">Mentions légales</a>
+                    <a href="#" class="hover:text-amber-400 transition-colors">Confidentialité</a>
+                    <a href="#" class="hover:text-amber-400 transition-colors">CGV</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Large "ORCA" TextHoverEffect (vanilla adaptation of React component) -->
+        <div class="hidden lg:flex items-center justify-center select-none z-50 relative" style="height: 30rem; margin-top: -13rem; margin-bottom: -9rem;" id="footer-text-hover">
+            <svg width="100%" height="100%" viewBox="0 0 300 100" xmlns="http://www.w3.org/2000/svg" class="cursor-pointer" id="footer-svg">
+                <defs>
+                    <linearGradient id="textGradient" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="#eab308"/>
+                        <stop offset="25%" stop-color="#ef4444"/>
+                        <stop offset="50%" stop-color="#80eeb4"/>
+                        <stop offset="75%" stop-color="#06b6d4"/>
+                        <stop offset="100%" stop-color="#8b5cf6"/>
+                    </linearGradient>
+                    <radialGradient id="revealMask" gradientUnits="userSpaceOnUse" cx="50%" cy="50%" r="20%">
+                        <stop offset="0%" stop-color="white"/>
+                        <stop offset="100%" stop-color="black"/>
+                    </radialGradient>
+                    <mask id="textMask">
+                        <rect x="0" y="0" width="100%" height="100%" fill="url(#revealMask)"/>
+                    </mask>
+                </defs>
+                <!-- Base text (visible on hover) -->
+                <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" stroke-width="0.3" fill="transparent" stroke="rgba(200,200,200,0.15)" font-family="Helvetica, Inter, sans-serif" font-size="70" font-weight="800" style="text-transform: uppercase; opacity: 0; transition: opacity 0.3s ease;" id="footer-text-base">ORCA</text>
+                <!-- Animated blue stroke text -->
+                <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" stroke-width="0.3" fill="transparent" stroke="#F59E0B" font-family="Helvetica, Inter, sans-serif" font-size="70" font-weight="800" stroke-dasharray="1000" stroke-dashoffset="1000" style="text-transform: uppercase; opacity: 0.6;" id="footer-text-stroke">ORCA</text>
+                <!-- Gradient reveal text (follows mouse via mask) -->
+                <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" stroke="url(#textGradient)" stroke-width="0.3" fill="transparent" mask="url(#textMask)" font-family="Helvetica, Inter, sans-serif" font-size="70" font-weight="800" style="text-transform: uppercase;">ORCA</text>
+            </svg>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll to booking form
+        document.querySelectorAll('.scroll-to-booking').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const rdvSection = document.getElementById('rdv');
+                if (rdvSection) {
+                    rdvSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Mobile menu toggle
+        const hamburger = document.getElementById('hamburger-menu');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (hamburger && mobileMenu) {
+            hamburger.addEventListener('click', () => {
+                mobileMenu.classList.toggle('open');
+            });
+        }
+
+        // Close mobile menu on link click
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (mobileMenu) {
+                    mobileMenu.classList.remove('open');
+                }
+            });
+        });
+
+        // Section reveal on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.section-reveal').forEach(el => observer.observe(el));
+
+        // Portfolio filter — default: show all (both buttons can be active or toggle)
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const wasActive = btn.classList.contains('pill-active');
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('pill-active'));
+                if (!wasActive) btn.classList.add('pill-active');
+                applyPortfolioFilter();
+            });
+        });
+
+        function applyPortfolioFilter() {
+            const activeBtn = document.querySelector('.filter-btn.pill-active');
+            const activeFilter = activeBtn ? activeBtn.dataset.filter : 'all';
+            document.querySelectorAll('.portfolio-item').forEach(item => {
+                const matchesFilter = (activeFilter === 'all' || item.dataset.filter === activeFilter);
+                item.style.display = matchesFilter ? 'block' : 'none';
+            });
+            // Stop all videos when filtering
+            document.querySelectorAll('.video-card.playing').forEach(card => {
+                const v = card.querySelector('video');
+                if (v) { v.pause(); v.currentTime = 0; }
+                card.classList.remove('playing');
+            });
+            // Reset scroll position
+            const scroll = document.getElementById('portfolio-scroll');
+            if (scroll) scroll.scrollLeft = 0;
+        }
+        // Default: show all (no filter active at start)
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('pill-active'));
+        applyPortfolioFilter();
+
+        // Preload video src on hover (buffers before click)
+        document.querySelectorAll('.video-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                const video = card.querySelector('video');
+                if (video && !video.src && video.dataset.src) {
+                    video.src = video.dataset.src;
+                    video.load();
+                }
+            }, { once: true });
+        });
+
+        // Video play/pause with loading state
+        function toggleVideo(card) {
+            const video = card.querySelector('video');
+            if (!video) return;
+
+            // Lazy load src if not yet loaded
+            const needsLoad = !video.src && video.dataset.src;
+            if (needsLoad) {
+                video.src = video.dataset.src;
+                video.load();
+            }
+
+            if (card.classList.contains('playing')) {
+                video.pause();
+                card.classList.remove('playing');
+                card.classList.remove('loading');
+            } else {
+                // Pause all other videos
+                document.querySelectorAll('.video-card.playing, .video-card.loading').forEach(other => {
+                    const ov = other.querySelector('video');
+                    if (ov) ov.pause();
+                    other.classList.remove('playing', 'loading');
+                });
+
+                // Show loader if video not ready
+                if (video.readyState < 3) {
+                    card.classList.add('loading');
+                    video.addEventListener('canplay', function onReady() {
+                        video.removeEventListener('canplay', onReady);
+                        card.classList.remove('loading');
+                        card.classList.add('playing');
+                        video.play();
+                    });
+                    video.play().catch(() => {}); // start buffering
+                } else {
+                    video.play();
+                    card.classList.add('playing');
+                }
+            }
+        }
+
+        // Toggle mute
+        function toggleMute(btn) {
+            const card = btn.closest('.video-card');
+            const video = card?.querySelector('video');
+            if (!video) return;
+            video.muted = !video.muted;
+            btn.querySelector('.muted-icon').style.display = video.muted ? 'block' : 'none';
+            btn.querySelector('.unmuted-icon').style.display = video.muted ? 'none' : 'block';
+        }
+
+        // Intersection Observer: preload poster images early + prefetch video for visible cards
+        const videoPreloadObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const video = entry.target.querySelector('video');
+                    if (video && video.dataset.src && !video.src) {
+                        // Prefetch video in background via link preload
+                        const link = document.createElement('link');
+                        link.rel = 'prefetch';
+                        link.href = video.dataset.src;
+                        link.as = 'video';
+                        document.head.appendChild(link);
+                    }
+                    videoPreloadObserver.unobserve(entry.target);
+                }
+            });
+        }, { rootMargin: '200px' });
+
+        document.querySelectorAll('.video-card').forEach(card => videoPreloadObserver.observe(card));
+
+
+        // Qualification — SCROLL_PROGRESS crossfade (exact Agence Short / Webflow IX2 replica)
+        // Extracted from Agence Short's Webflow IX2 action list "a-14" (block_scroll view):
+        //   3 cards, keyframes: 40%→card1=1,card2=0 | 50%→card1=0,card2=1,card3=0 | 67%→card2=0,card3=1
+        //   Event: SCROLLING_IN_VIEW, smoothing:50, startsEntering:true
+        // Adapted for 4 cards with proportional keyframe spacing.
+        const qualSection = document.getElementById('qualification');
+        const qualCards = document.querySelectorAll('.qual-scroll-card');
+
+        if (qualSection && qualCards.length > 0) {
+            // Keyframes: at what scroll progress (0-1) each card reaches full opacity
+            // Agence Short pattern: hold → crossfade → hold → crossfade → hold
+            const keyframes = [
+                { at: 0.38, opacities: [1, 0, 0, 0] },    // card1 fully visible
+                { at: 0.50, opacities: [0, 1, 0, 0] },    // crossfade 1→2 complete
+                { at: 0.62, opacities: [0, 0, 1, 0] },    // crossfade 2→3 complete
+                { at: 0.75, opacities: [0, 0, 0, 1] },    // crossfade 3→4 complete
+            ];
+
+            // Smoothed progress (Webflow smoothing:50 equivalent)
+            let smoothProgress = -1; // -1 = not initialized yet
+
+            function getCardOpacity(cardIndex, progress) {
+                // Before first keyframe: hold first keyframe values
+                if (progress <= keyframes[0].at) {
+                    return keyframes[0].opacities[cardIndex];
+                }
+                // After last keyframe: hold last keyframe values
+                if (progress >= keyframes[keyframes.length - 1].at) {
+                    return keyframes[keyframes.length - 1].opacities[cardIndex];
+                }
+                // Between keyframes: linear interpolation
+                for (let i = 0; i < keyframes.length - 1; i++) {
+                    if (progress >= keyframes[i].at && progress <= keyframes[i + 1].at) {
+                        const t = (progress - keyframes[i].at) / (keyframes[i + 1].at - keyframes[i].at);
+                        return keyframes[i].opacities[cardIndex] + t * (keyframes[i + 1].opacities[cardIndex] - keyframes[i].opacities[cardIndex]);
+                    }
+                }
+                return 0;
+            }
+
+            function applyQualOpacities(progress) {
+                qualCards.forEach((card, i) => {
+                    const opacity = getCardOpacity(i, progress);
+                    card.style.opacity = Math.max(0, Math.min(1, opacity));
+                });
+            }
+
+            function getRawProgress() {
+                const rect = qualSection.getBoundingClientRect();
+                const vh = window.innerHeight;
+                const sectionH = qualSection.offsetHeight;
+                // Scroll progress: 0 when section top hits viewport bottom, 1 when section bottom hits viewport top
+                // This matches Webflow's SCROLLING_IN_VIEW with startsEntering:true
+                return Math.max(0, Math.min(1, (vh - rect.top) / (vh + sectionH)));
+            }
+
+            // Set initial state immediately (no waiting for RAF)
+            smoothProgress = getRawProgress();
+            applyQualOpacities(smoothProgress);
+
+            // Smooth animation loop via scroll + RAF
+            let rafId = null;
+            function smoothUpdate() {
+                const raw = getRawProgress();
+                smoothProgress += (raw - smoothProgress) * 0.15;
+                // Stop smoothing when close enough
+                if (Math.abs(raw - smoothProgress) > 0.001) {
+                    applyQualOpacities(smoothProgress);
+                    rafId = requestAnimationFrame(smoothUpdate);
+                } else {
+                    smoothProgress = raw;
+                    applyQualOpacities(smoothProgress);
+                    rafId = null;
+                }
+            }
+
+            window.addEventListener('scroll', () => {
+                // Direct update for responsiveness
+                const raw = getRawProgress();
+                smoothProgress += (raw - smoothProgress) * 0.15;
+                applyQualOpacities(smoothProgress);
+                // Continue smoothing via RAF
+                if (!rafId) rafId = requestAnimationFrame(smoothUpdate);
+            }, { passive: true });
+        }
+
+        // Timeline V2 — scroll-driven fill + progressive reveal (Agence Short style)
+        const tlFill = document.getElementById('tl-fill');
+        const tlContainer = document.getElementById('method-timeline');
+        const tlSteps = document.querySelectorAll('.tl-step');
+
+        if (tlFill && tlContainer && tlSteps.length > 0) {
+            window.addEventListener('scroll', () => {
+                const section = tlContainer.closest('section');
+                if (!section) return;
+                const top = section.offsetTop;
+                const height = section.offsetHeight;
+                const scroll = window.scrollY + window.innerHeight;
+                const pct = Math.max(0, Math.min((scroll - top) / height, 1)) * 100;
+                tlFill.style.height = pct + '%';
+
+                const vh = window.innerHeight;
+                tlSteps.forEach(step => {
+                    const card = step.querySelector('.tl-card');
+                    const dot = step.querySelector('.tl-dot');
+                    if (!card) return;
+                    const rect = step.getBoundingClientRect();
+                    const cardCenter = rect.top + rect.height / 2;
+                    // Sweet spot where card becomes fully opaque
+                    const sweetSpot = vh * 0.55;
+                    // Start fading in when entering viewport bottom
+                    const enterLine = vh * 0.9;
+
+                    if (cardCenter < sweetSpot) {
+                        // Past the sweet spot — stay fully visible (no fade-out on scroll-up)
+                        card.style.opacity = '1';
+                        card.classList.add('visible', 'active');
+                        if (dot) dot.classList.add('active');
+                    } else if (cardCenter < enterLine) {
+                        // In the transition zone — progressive opacity from 0.25 to 1
+                        const rawProgress = 1 - (cardCenter - sweetSpot) / (enterLine - sweetSpot);
+                        const progress = Math.max(0, Math.min(rawProgress, 1));
+                        const eased = 1 - Math.pow(1 - progress, 2.5);
+                        const opacity = 0.25 + 0.75 * eased;
+                        card.style.opacity = opacity;
+                        card.classList.add('visible');
+                        if (opacity > 0.85) {
+                            card.classList.add('active');
+                            if (dot) dot.classList.add('active');
+                        } else {
+                            card.classList.remove('active');
+                            if (dot) dot.classList.remove('active');
+                        }
+                    } else {
+                        // Below viewport — base dimmed state
+                        card.style.opacity = '0.25';
+                        card.classList.remove('active', 'visible');
+                        if (dot) dot.classList.remove('active');
+                    }
+                });
+            }, { passive: true });
+        }
+
+        // FAQ Tab Filtering
+        const faqTabs = document.querySelectorAll('.faq-tab');
+        const faqItems = document.querySelectorAll('.faq-item');
+
+        function filterFaqByCategory(category) {
+            faqItems.forEach(item => {
+                const cats = item.getAttribute('data-categories') || '';
+                if (cats.includes(category)) {
+                    item.classList.remove('faq-hidden');
+                    item.style.opacity = '0';
+                    item.style.transform = 'translateY(12px)';
+                    requestAnimationFrame(() => {
+                        item.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+                        item.style.opacity = '1';
+                        item.style.transform = 'translateY(0)';
+                    });
+                } else {
+                    item.classList.add('faq-hidden');
+                }
+            });
+            // Close all open items when switching tabs
+            faqItems.forEach(item => {
+                item.classList.remove('open');
+                const answer = item.querySelector('.faq-answer');
+                if (answer) answer.style.height = '0';
+            });
+        }
+
+        faqTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                faqTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                filterFaqByCategory(tab.getAttribute('data-category'));
+            });
+        });
+
+        // Apply initial filter based on active tab
+        const activeTab = document.querySelector('.faq-tab.active');
+        if (activeTab) filterFaqByCategory(activeTab.getAttribute('data-category'));
+
+        // FAQ Accordion (expand/collapse)
+        document.querySelectorAll('.faq-trigger').forEach(trigger => {
+            trigger.addEventListener('click', () => {
+                const item = trigger.closest('.faq-item');
+                if (!item) return;
+                const answer = item.querySelector('.faq-answer');
+                if (!answer) return;
+
+                const isOpen = item.classList.contains('open');
+
+                // Close all other items
+                faqItems.forEach(other => {
+                    if (other !== item) {
+                        other.classList.remove('open');
+                        const otherAnswer = other.querySelector('.faq-answer');
+                        if (otherAnswer) otherAnswer.style.height = '0';
+                    }
+                });
+
+                // Toggle current item
+                if (isOpen) {
+                    item.classList.remove('open');
+                    answer.style.height = '0';
+                } else {
+                    item.classList.add('open');
+                    answer.style.height = answer.scrollHeight + 'px';
+                }
+            });
+        });
+
+        // Form submission with inline success message
+        const bookingForm = document.getElementById('booking-form');
+        if (bookingForm) {
+            bookingForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                // Create success message
+                const successMsg = document.createElement('div');
+                successMsg.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 12px; padding: 16px; background: #dcfce7; border: 1px solid #86efac; border-radius: 8px; color: #166534; font-weight: 500; margin-bottom: 16px; animation: fadeOut 4s forwards;">
+                        <span style="font-size: 20px;">✓</span>
+                        <span>Merci ! On vous contactera dans les 24h.</span>
+                    </div>
+                `;
+                successMsg.style.animation = 'fadeInUp 0.4s ease-out, fadeOut 4s ease-in 4s forwards';
+                
+                // Insert at the top of the form
+                bookingForm.parentNode.insertBefore(successMsg, bookingForm);
+                
+                // Reset form
+                e.target.reset();
+                
+                // Remove message after animation
+                setTimeout(() => successMsg.remove(), 4800);
+            });
+        }
+
+        // Count-up animation
+        function animateCountUp(element, target, duration, suffix, prefix) {
+            const startTime = performance.now();
+            const isDecimal = target % 1 !== 0;
+            const decimals = isDecimal ? 1 : 0;
+            
+            function update(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                // ease-out cubique: 1 - (1 - t)^3
+                const eased = 1 - Math.pow(1 - progress, 3);
+                const current = eased * target;
+                
+                element.textContent = (prefix || '') + current.toFixed(decimals) + (suffix || '');
+                
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                }
+            }
+            
+            requestAnimationFrame(update);
+        }
+
+        // Intersection Observer pour les count-up
+        const countObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !entry.target.dataset.counted) {
+                    entry.target.dataset.counted = 'true';
+                    entry.target.classList.add('animated');
+                    
+                    const countEl = entry.target.querySelector('[data-count-target]');
+                    if (countEl) {
+                        const target = parseFloat(countEl.dataset.countTarget);
+                        const suffix = countEl.dataset.countSuffix || '';
+                        const prefix = countEl.dataset.countPrefix || '';
+                        const duration = target > 100 ? 2500 : target > 20 ? 2000 : 1500;
+                        animateCountUp(countEl, target, duration, suffix, prefix);
+                    }
+                }
+            });
+        }, { threshold: 0.3 });
+
+        document.querySelectorAll('.count-up-wrapper').forEach(el => countObserver.observe(el));
+
+        // Footer TextHoverEffect — vanilla adaptation of React component
+        const footerSvg = document.getElementById('footer-svg');
+        const footerStroke = document.getElementById('footer-text-stroke');
+        const footerBase = document.getElementById('footer-text-base');
+        const revealMask = document.getElementById('revealMask');
+
+        if (footerSvg && footerStroke) {
+            // 1. Stroke dash animation on scroll into view (like motion.text initial→animate)
+            const footerObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        footerStroke.style.transition = 'stroke-dashoffset 4s ease-in-out';
+                        footerStroke.style.strokeDashoffset = '0';
+                        footerObserver.disconnect();
+                    }
+                });
+            }, { threshold: 0.2 });
+            footerObserver.observe(footerSvg);
+
+            // 2. Mouse hover: show base text (like style={{ opacity: hovered ? 0.7 : 0 }})
+            footerSvg.addEventListener('mouseenter', () => {
+                if (footerBase) footerBase.style.opacity = '0.7';
+            });
+            footerSvg.addEventListener('mouseleave', () => {
+                if (footerBase) footerBase.style.opacity = '0';
+            });
+
+            // 3. Mouse move: update radialGradient position (like motion.radialGradient animate)
+            footerSvg.addEventListener('mousemove', (e) => {
+                const rect = footerSvg.getBoundingClientRect();
+                const cx = ((e.clientX - rect.left) / rect.width) * 100;
+                const cy = ((e.clientY - rect.top) / rect.height) * 100;
+                if (revealMask) {
+                    revealMask.setAttribute('cx', cx + '%');
+                    revealMask.setAttribute('cy', cy + '%');
+                }
+            });
+        }
+
+
+        // Scroll-spy: highlight nav links based on scroll position
+        const navLinks = document.querySelectorAll('nav a[href^="#"], .mobile-link[href^="#"]');
+        const sections = document.querySelectorAll('section[id], div[id]');
+        
+        function updateActiveLink() {
+            let current = '';
+            
+            for (let section of sections) {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                
+                if (window.pageYOffset >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            }
+            
+            navLinks.forEach(link => {
+                link.classList.remove('nav-active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('nav-active');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', updateActiveLink);
+        updateActiveLink(); // Call on page load
+        </script>
+</body>
+</html>
