@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-P3XTXLPM');</script>
+    <!-- End Google Tag Manager -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ORCA - Agence Vidéo + Acquisition Payante</title>
@@ -891,29 +898,47 @@
                 scroll-snap-align: start;
             }
 
-            /* Reduce portfolio card width on mobile */
-            .flex-shrink-0.w-80 {
-                width: calc(100vw - 2rem);
-                max-width: 90vw;
-                min-width: calc(100vw - 2rem);
+            /* Reduce portfolio card width on mobile — near full-screen */
+            .flex-shrink-0.w-80,
+            .flex-shrink-0.portfolio-item {
+                width: calc(100vw - 2.5rem);
+                max-width: 92vw;
+                min-width: calc(100vw - 2.5rem);
+                scroll-snap-align: center;
+            }
+            /* Video cards fill their container on mobile */
+            .video-card {
+                width: 100% !important;
+                height: auto !important;
+                aspect-ratio: 9 / 16;
+                max-height: 80vh;
             }
 
             /* Timeline V2 mobile */
+            .tl-container {
+                padding-left: 0 !important;
+            }
             .tl-step {
                 grid-template-columns: 28px 1fr !important;
-                gap: 0 12px !important;
-                margin-bottom: 32px !important;
+                gap: 0 14px !important;
+                margin-bottom: 28px !important;
                 min-height: auto !important;
             }
             .tl-line-bg, .tl-line-fill {
                 left: 14px !important;
+                transform: translateX(-50%) !important;
             }
             .tl-dot {
                 grid-column: 1 !important;
                 grid-row: 1 !important;
-                width: 14px; height: 14px;
-                margin-top: 18px;
+                width: 16px !important;
+                height: 16px !important;
+                margin: 20px auto 0 !important;
                 align-self: start;
+                justify-self: center;
+            }
+            .tl-dot.active {
+                transform: scale(1.2) !important;
             }
             .tl-step.step-left .tl-card,
             .tl-step.step-right .tl-card {
@@ -1083,6 +1108,22 @@
             .count-up-wrapper .text-4xl {
                 font-size: 2rem !important;
             }
+            /* Fix stats grid alignment on mobile */
+            .grid.grid-cols-2 .count-up-wrapper {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                text-align: center;
+            }
+            .grid.grid-cols-2 .count-up-wrapper p {
+                font-size: 0.8rem !important;
+                line-height: 1.3;
+                max-width: 120px;
+            }
+            .grid.grid-cols-2 {
+                gap: 1.5rem 0.75rem !important;
+            }
 
             /* ===== TIMELINE CARD MOBILE ===== */
             .tl-card {
@@ -1115,15 +1156,20 @@
                 padding: 40px 12px 0 !important;
             }
             .final-cta-container {
-                padding: 48px 20px 40px !important;
+                padding: 60px 20px 40px !important;
                 border-radius: 20px !important;
+                overflow: hidden !important;
             }
-            .floating-icon {
+            /* Hide floating social icons & stat cards on mobile to prevent overlap */
+            .cta-floating-icons {
+                display: none !important;
+            }
+            .final-cta-section .floating-icon {
                 width: 38px !important;
                 height: 38px !important;
                 border-radius: 10px !important;
             }
-            .floating-icon svg {
+            .final-cta-section .floating-icon svg {
                 width: 18px !important;
                 height: 18px !important;
             }
@@ -1223,6 +1269,10 @@
         </style>
 </head>
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P3XTXLPM"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
     <!-- HEADER -->
     <header id="site-header">
         <div class="nav-pill">
@@ -1230,8 +1280,7 @@
             <nav class="hidden md:flex items-center" style="gap: 4px;">
                 <a href="#accueil">Accueil</a>
                 <a href="#portfolio">Réalisations</a>
-                <a href="#cas">Études de cas</a>
-                <a href="#avis">Avis clients</a>
+                <a href="#method">Méthode</a>
                 <a href="#faq">FAQ</a>
             </nav>
             <button class="nav-cta hidden md:inline-flex scroll-to-booking">Prendre rendez-vous</button>
@@ -1241,8 +1290,7 @@
         <div id="mobile-menu" style="pointer-events:all;">
             <a href="#accueil" class="mobile-link">Accueil</a>
             <a href="#portfolio" class="mobile-link">Réalisations</a>
-            <a href="#cas" class="mobile-link">Études de cas</a>
-            <a href="#avis" class="mobile-link">Avis clients</a>
+            <a href="#method" class="mobile-link">Méthode</a>
             <a href="#faq" class="mobile-link">FAQ</a>
             <a href="#rdv" class="btn scroll-to-booking">Prendre rendez-vous</a>
         </div>
@@ -1395,16 +1443,15 @@
         <div class="max-w-6xl mx-auto section-reveal">
             <h2 class="text-3xl md:text-5xl font-bold mb-8 text-center">Nos <span style="color: var(--primary); font-style: italic;">réalisations</span></h2>
             <div class="flex gap-3 mb-8 flex-wrap justify-center">
-                <button class="pill pill-active filter-btn" data-filter="ads">Formats Ads</button>
-                <button class="pill filter-btn" data-filter="organic">Formats Organique</button>
+                <span class="pill pill-active" style="cursor: default;">Formats Optimisé Ads &amp; Organique</span>
             </div>
             <div style="position: relative;">
                 <div class="overflow-x-auto pb-4" id="portfolio-scroll" style="scroll-behavior: smooth; -webkit-overflow-scrolling: touch; scrollbar-width: none;">
                     <div class="flex gap-5 min-w-min" id="portfolio-carousel">
                         <!-- ADS -->
-                        <div class="flex-shrink-0 portfolio-item" data-filter="ads">
+                        <div class="flex-shrink-0 portfolio-item">
                             <div class="video-card" onclick="toggleVideo(this)">
-                                <video muted loop playsinline preload="none" data-src="videos/RA-Ringside%20arena%20V8.mp4"></video>
+                                <video poster="posters/RA-Ringside%20arena%20V8.jpg" muted loop playsinline preload="metadata" data-src="videos/RA-Ringside%20arena%20V8.mp4"></video>
                                 <div class="video-play-btn"><svg width="28" height="28" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
                                 <div class="video-loader"></div>
                                 <div class="video-mute-btn" onclick="event.stopPropagation();toggleMute(this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="white" class="muted-icon"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.796 8.796 0 0021 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06a8.99 8.99 0 003.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="white" class="unmuted-icon" style="display:none"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg></div>
@@ -1412,9 +1459,9 @@
                             <p class="mt-2 text-sm font-semibold">Ringside Arena</p>
                         </div>
                         <!-- ORGANIC -->
-                        <div class="flex-shrink-0 portfolio-item" data-filter="organic">
+                        <div class="flex-shrink-0 portfolio-item">
                             <div class="video-card" onclick="toggleVideo(this)">
-                                <video muted loop playsinline preload="none" data-src="videos/CM-Pr%C3%A9paration%20Boeuf%20Angus%20V7.mp4"></video>
+                                <video poster="posters/CM-Pr%C3%A9paration%20Boeuf%20Angus%20V7.jpg" muted loop playsinline preload="metadata" data-src="videos/CM-Pr%C3%A9paration%20Boeuf%20Angus%20V7.mp4"></video>
                                 <div class="video-play-btn"><svg width="28" height="28" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
                                 <div class="video-loader"></div>
                                 <div class="video-mute-btn" onclick="event.stopPropagation();toggleMute(this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="white" class="muted-icon"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.796 8.796 0 0021 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06a8.99 8.99 0 003.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="white" class="unmuted-icon" style="display:none"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg></div>
@@ -1422,9 +1469,9 @@
                             <p class="mt-2 text-sm font-semibold">Chez Minnà</p>
                         </div>
                         <!-- ADS -->
-                        <div class="flex-shrink-0 portfolio-item" data-filter="ads">
+                        <div class="flex-shrink-0 portfolio-item">
                             <div class="video-card" onclick="toggleVideo(this)">
-                                <video muted loop playsinline preload="none" data-src="videos/EP-Etape%20r%C3%A9paration%20de%20pneu%20V1.mp4"></video>
+                                <video poster="posters/EP-Etape%20r%C3%A9paration%20de%20pneu%20V1.jpg" muted loop playsinline preload="metadata" data-src="videos/EP-Etape%20r%C3%A9paration%20de%20pneu%20V1.mp4"></video>
                                 <div class="video-play-btn"><svg width="28" height="28" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
                                 <div class="video-loader"></div>
                                 <div class="video-mute-btn" onclick="event.stopPropagation();toggleMute(this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="white" class="muted-icon"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.796 8.796 0 0021 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06a8.99 8.99 0 003.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="white" class="unmuted-icon" style="display:none"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg></div>
@@ -1432,9 +1479,9 @@
                             <p class="mt-2 text-sm font-semibold">ERRIC Pneu</p>
                         </div>
                         <!-- ORGANIC -->
-                        <div class="flex-shrink-0 portfolio-item" data-filter="organic">
+                        <div class="flex-shrink-0 portfolio-item">
                             <div class="video-card" onclick="toggleVideo(this)">
-                                <video muted loop playsinline preload="none" data-src="videos/DR%20-%20Comparaison%20rue%20V6.mp4"></video>
+                                <video poster="posters/DR%20-%20Comparaison%20rue%20V6.jpg" muted loop playsinline preload="metadata" data-src="videos/DR%20-%20Comparaison%20rue%20V6.mp4"></video>
                                 <div class="video-play-btn"><svg width="28" height="28" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
                                 <div class="video-loader"></div>
                                 <div class="video-mute-btn" onclick="event.stopPropagation();toggleMute(this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="white" class="muted-icon"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.796 8.796 0 0021 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06a8.99 8.99 0 003.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="white" class="unmuted-icon" style="display:none"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg></div>
@@ -1442,9 +1489,9 @@
                             <p class="mt-2 text-sm font-semibold">Dolce Restaurante</p>
                         </div>
                         <!-- ADS -->
-                        <div class="flex-shrink-0 portfolio-item" data-filter="ads">
+                        <div class="flex-shrink-0 portfolio-item">
                             <div class="video-card" onclick="toggleVideo(this)">
-                                <video muted loop playsinline preload="none" data-src="videos/FL-Sens%20de%20ma%20vie%20V2.mp4"></video>
+                                <video poster="posters/FL-Sens%20de%20ma%20vie%20V2.jpg" muted loop playsinline preload="metadata" data-src="videos/FL-Sens%20de%20ma%20vie%20V2.mp4"></video>
                                 <div class="video-play-btn"><svg width="28" height="28" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
                                 <div class="video-loader"></div>
                                 <div class="video-mute-btn" onclick="event.stopPropagation();toggleMute(this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="white" class="muted-icon"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.796 8.796 0 0021 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06a8.99 8.99 0 003.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="white" class="unmuted-icon" style="display:none"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg></div>
@@ -1452,9 +1499,9 @@
                             <p class="mt-2 text-sm font-semibold">Frédéric Lenoir</p>
                         </div>
                         <!-- ORGANIC -->
-                        <div class="flex-shrink-0 portfolio-item" data-filter="organic">
+                        <div class="flex-shrink-0 portfolio-item">
                             <div class="video-card" onclick="toggleVideo(this)">
-                                <video muted loop playsinline preload="none" data-src="videos/DN%20-%20Cigne%20Noir%20V9.mp4"></video>
+                                <video poster="posters/DN%20-%20Cigne%20Noir%20V9.jpg" muted loop playsinline preload="metadata" data-src="videos/DN%20-%20Cigne%20Noir%20V9.mp4"></video>
                                 <div class="video-play-btn"><svg width="28" height="28" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
                                 <div class="video-loader"></div>
                                 <div class="video-mute-btn" onclick="event.stopPropagation();toggleMute(this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="white" class="muted-icon"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.796 8.796 0 0021 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06a8.99 8.99 0 003.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="white" class="unmuted-icon" style="display:none"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg></div>
@@ -1462,9 +1509,9 @@
                             <p class="mt-2 text-sm font-semibold">Domaine de Neuville</p>
                         </div>
                         <!-- ADS -->
-                        <div class="flex-shrink-0 portfolio-item" data-filter="ads">
+                        <div class="flex-shrink-0 portfolio-item">
                             <div class="video-card" onclick="toggleVideo(this)">
-                                <video muted loop playsinline preload="none" data-src="videos/3%20Raison%20Eat%20Sushi%20V2.mp4"></video>
+                                <video poster="posters/3%20Raison%20Eat%20Sushi%20V2.jpg" muted loop playsinline preload="metadata" data-src="videos/3%20Raison%20Eat%20Sushi%20V2.mp4"></video>
                                 <div class="video-play-btn"><svg width="28" height="28" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
                                 <div class="video-loader"></div>
                                 <div class="video-mute-btn" onclick="event.stopPropagation();toggleMute(this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="white" class="muted-icon"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.796 8.796 0 0021 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06a8.99 8.99 0 003.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="white" class="unmuted-icon" style="display:none"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg></div>
@@ -1472,9 +1519,9 @@
                             <p class="mt-2 text-sm font-semibold">Eat Sushi</p>
                         </div>
                         <!-- ORGANIC -->
-                        <div class="flex-shrink-0 portfolio-item" data-filter="organic">
+                        <div class="flex-shrink-0 portfolio-item">
                             <div class="video-card" onclick="toggleVideo(this)">
-                                <video muted loop playsinline preload="none" data-src="videos/PF-Concept%20restau%20V3.mp4"></video>
+                                <video poster="posters/PF-Concept%20restau%20V3.jpg" muted loop playsinline preload="metadata" data-src="videos/PF-Concept%20restau%20V3.mp4"></video>
                                 <div class="video-play-btn"><svg width="28" height="28" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
                                 <div class="video-loader"></div>
                                 <div class="video-mute-btn" onclick="event.stopPropagation();toggleMute(this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="white" class="muted-icon"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.796 8.796 0 0021 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06a8.99 8.99 0 003.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="white" class="unmuted-icon" style="display:none"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg></div>
@@ -1482,9 +1529,9 @@
                             <p class="mt-2 text-sm font-semibold">Paradis du Fruit</p>
                         </div>
                         <!-- ADS -->
-                        <div class="flex-shrink-0 portfolio-item" data-filter="ads">
+                        <div class="flex-shrink-0 portfolio-item">
                             <div class="video-card" onclick="toggleVideo(this)">
-                                <video muted loop playsinline preload="none" data-src="videos/MT%203%20espace%20club%20V6.mp4"></video>
+                                <video poster="posters/MT%203%20espace%20club%20V6.jpg" muted loop playsinline preload="metadata" data-src="videos/MT%203%20espace%20club%20V6.mp4"></video>
                                 <div class="video-play-btn"><svg width="28" height="28" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
                                 <div class="video-loader"></div>
                                 <div class="video-mute-btn" onclick="event.stopPropagation();toggleMute(this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="white" class="muted-icon"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.796 8.796 0 0021 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06a8.99 8.99 0 003.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="white" class="unmuted-icon" style="display:none"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg></div>
@@ -1492,9 +1539,9 @@
                             <p class="mt-2 text-sm font-semibold">Gym K</p>
                         </div>
                         <!-- ORGANIC -->
-                        <div class="flex-shrink-0 portfolio-item" data-filter="organic">
+                        <div class="flex-shrink-0 portfolio-item">
                             <div class="video-card" onclick="toggleVideo(this)">
-                                <video muted loop playsinline preload="none" data-src="videos/Tu%20mange%20quoi%20DOLCE.mp4"></video>
+                                <video poster="posters/Tu%20mange%20quoi%20DOLCE.jpg" muted loop playsinline preload="metadata" data-src="videos/Tu%20mange%20quoi%20DOLCE.mp4"></video>
                                 <div class="video-play-btn"><svg width="28" height="28" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
                                 <div class="video-loader"></div>
                                 <div class="video-mute-btn" onclick="event.stopPropagation();toggleMute(this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="white" class="muted-icon"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.796 8.796 0 0021 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06a8.99 8.99 0 003.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="white" class="unmuted-icon" style="display:none"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg></div>
@@ -1502,9 +1549,9 @@
                             <p class="mt-2 text-sm font-semibold">Dolce Restaurante</p>
                         </div>
                         <!-- ORGANIC -->
-                        <div class="flex-shrink-0 portfolio-item" data-filter="organic">
+                        <div class="flex-shrink-0 portfolio-item">
                             <div class="video-card" onclick="toggleVideo(this)">
-                                <video muted loop playsinline preload="none" data-src="videos/PP-Pr%C3%A9paration%20cocktail%20Italicus%20Margarita%20V2.mp4"></video>
+                                <video poster="posters/PP-Pr%C3%A9paration%20cocktail%20Italicus%20Margarita%20V2.jpg" muted loop playsinline preload="metadata" data-src="videos/PP-Pr%C3%A9paration%20cocktail%20Italicus%20Margarita%20V2.mp4"></video>
                                 <div class="video-play-btn"><svg width="28" height="28" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
                                 <div class="video-loader"></div>
                                 <div class="video-mute-btn" onclick="event.stopPropagation();toggleMute(this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="white" class="muted-icon"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.796 8.796 0 0021 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06a8.99 8.99 0 003.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="white" class="unmuted-icon" style="display:none"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg></div>
@@ -1599,34 +1646,6 @@
                         </div>
                         <p style="color: var(--text-muted); line-height: 1.7; font-size: 0.95rem;">Résultat : Pas de plan, pas de data, pas d'itérations. Vos coûts montent et rien n'est stable.</p>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CASE STUDIES -->
-    <section id="cas" class="py-20 px-4 bg-orange-50">
-        <div class="max-w-6xl mx-auto section-reveal">
-            <h2 class="text-3xl md:text-5xl font-bold mb-4 text-center">Est-ce que ça marche vraiment ?</h2>
-            <p class="text-center text-gray-600 mb-12 text-lg">Voici nos 3 derniers succès.</p>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="count-up-wrapper case-study-card">
-                    <h3 class="text-xl font-bold mb-4">NovaSkin</h3>
-                    <p class="text-3xl font-bold text-amber-500 mb-2" data-count-target="285" data-count-prefix="+" data-count-suffix="%">+0%</p>
-                    <p class="text-gray-600 font-medium mb-4">Croissance des ventes en 3 mois.</p>
-                    <p class="text-gray-500 text-sm">De 2 vidéos testées à 8 vidéos à fort ROAS en 3 mois avec une méthode structurée et des itérations rapides.</p>
-                </div>
-                <div class="count-up-wrapper case-study-card">
-                    <h3 class="text-xl font-bold mb-4">Hëlios</h3>
-                    <p class="text-3xl font-bold text-amber-500 mb-2" data-count-target="3" data-count-prefix="x">x0</p>
-                    <p class="text-gray-600 font-medium mb-4">Multiplication du ROAS en 5 mois.</p>
-                    <p class="text-gray-500 text-sm">Passage d'une approche créa pure à une stratégie intégrée création + pilotage. Résultat : multiplication par 3 du ROAS.</p>
-                </div>
-                <div class="count-up-wrapper case-study-card">
-                    <h3 class="text-xl font-bold mb-4">Maison Lune</h3>
-                    <p class="text-3xl font-bold text-amber-500 mb-2" data-count-target="5" data-count-prefix="x">x0</p>
-                    <p class="text-gray-600 font-medium mb-4">Scaling du budget publicitaire sans friction.</p>
-                    <p class="text-gray-500 text-sm">Passage de 500€/jour à 2500€/jour en 6 mois avec une multiplication par 5 du budget grâce à une création continue et optimisée.</p>
                 </div>
             </div>
         </div>
@@ -1760,228 +1779,6 @@
                     </li>
                 </ul>
             </div>
-        </div>
-    </section>
-
-    <!-- REVIEWS / AVIS CLIENTS — Scrolling Columns -->
-    <section id="avis" class="py-20 px-4 bg-white relative overflow-hidden">
-        <div class="max-w-6xl mx-auto section-reveal">
-            <!-- Header -->
-            <div class="flex flex-col items-center mb-12">
-                <span class="inline-block border border-gray-200 py-1 px-4 rounded-full text-xs font-semibold tracking-wide uppercase text-gray-500 bg-gray-50 mb-6">Témoignages</span>
-                <h2 class="text-3xl md:text-5xl font-bold text-center mb-4">Ils en parlent mieux que nous</h2>
-                <p class="text-center text-gray-500 text-lg max-w-md">Découvrez pourquoi nos clients nous font confiance pour leur croissance.</p>
-            </div>
-
-            <!-- Scrolling Testimonial Columns -->
-            <div class="flex justify-center gap-6 max-h-[700px] overflow-hidden" style="-webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent); mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);">
-
-                <!-- Column 1 -->
-                <div class="testimonial-col flex-1 max-w-xs overflow-hidden">
-                    <div class="testimonial-scroll" style="animation: scrollUp 20s linear infinite;">
-                        <!-- Card 1 -->
-                        <div class="testimonial-card mb-6">
-                            <p class="text-gray-600 leading-relaxed mb-6">"ORCA a transformé notre approche vidéo. En 3 mois, on a eu nos meilleures performances ever."</p>
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center text-sm font-bold text-amber-700">MD</div>
-                                <div>
-                                    <p class="font-semibold text-sm text-gray-900">Marie D.</p>
-                                    <p class="text-xs text-gray-500">Fondatrice, NovaSkin</p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Card 2 -->
-                        <div class="testimonial-card mb-6">
-                            <p class="text-gray-600 leading-relaxed mb-6">"Le tracking propre a changé notre façon de piloter les campagnes. On ne travaille plus à l'aveugle."</p>
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-sm font-bold text-green-700">MP</div>
-                                <div>
-                                    <p class="font-semibold text-sm text-gray-900">Marc P.</p>
-                                    <p class="text-xs text-gray-500">Gérant, Atelier Vert</p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Card 3 -->
-                        <div class="testimonial-card mb-6">
-                            <p class="text-gray-600 leading-relaxed mb-6">"Un vrai gain de temps. ORCA gère tout de A à Z et on reçoit des résultats concrets chaque semaine."</p>
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-sm font-bold text-purple-700">SB</div>
-                                <div>
-                                    <p class="font-semibold text-sm text-gray-900">Sarah B.</p>
-                                    <p class="text-xs text-gray-500">CMO, FitnessPro</p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Duplicated for seamless loop -->
-                        <div class="testimonial-card mb-6">
-                            <p class="text-gray-600 leading-relaxed mb-6">"ORCA a transformé notre approche vidéo. En 3 mois, on a eu nos meilleures performances ever."</p>
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center text-sm font-bold text-amber-700">MD</div>
-                                <div>
-                                    <p class="font-semibold text-sm text-gray-900">Marie D.</p>
-                                    <p class="text-xs text-gray-500">Fondatrice, NovaSkin</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="testimonial-card mb-6">
-                            <p class="text-gray-600 leading-relaxed mb-6">"Le tracking propre a changé notre façon de piloter les campagnes. On ne travaille plus à l'aveugle."</p>
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-sm font-bold text-green-700">MP</div>
-                                <div>
-                                    <p class="font-semibold text-sm text-gray-900">Marc P.</p>
-                                    <p class="text-xs text-gray-500">Gérant, Atelier Vert</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="testimonial-card mb-6">
-                            <p class="text-gray-600 leading-relaxed mb-6">"Un vrai gain de temps. ORCA gère tout de A à Z et on reçoit des résultats concrets chaque semaine."</p>
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-sm font-bold text-purple-700">SB</div>
-                                <div>
-                                    <p class="font-semibold text-sm text-gray-900">Sarah B.</p>
-                                    <p class="text-xs text-gray-500">CMO, FitnessPro</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Column 2 (hidden on mobile) -->
-                <div class="testimonial-col flex-1 max-w-xs overflow-hidden hidden md:block">
-                    <div class="testimonial-scroll" style="animation: scrollUp 25s linear infinite;">
-                        <div class="testimonial-card mb-6">
-                            <p class="text-gray-600 leading-relaxed mb-6">"Avant, on n'avait que du blabla sur le contenu vidéo. Avec ORCA, chaque vidéo a un objectif clair et des résultats mesurables."</p>
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-sm font-bold text-blue-700">TP</div>
-                                <div>
-                                    <p class="font-semibold text-sm text-gray-900">Thomas P.</p>
-                                    <p class="text-xs text-gray-500">CEO, Hëlios</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="testimonial-card mb-6">
-                            <p class="text-gray-600 leading-relaxed mb-6">"ORCA comprend vraiment ce que c'est que de scaler. Les vidéos sont pensées pour convertir, pas juste pour plaire."</p>
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center text-sm font-bold text-red-700">JR</div>
-                                <div>
-                                    <p class="font-semibold text-sm text-gray-900">Julien R.</p>
-                                    <p class="text-xs text-gray-500">Dir. Marketing, Ringside</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="testimonial-card mb-6">
-                            <p class="text-gray-600 leading-relaxed mb-6">"On a enfin une agence qui comprend les deux mondes : le créatif et la data. Les résultats parlent d'eux-mêmes."</p>
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-full bg-teal-100 flex items-center justify-center text-sm font-bold text-teal-700">AC</div>
-                                <div>
-                                    <p class="font-semibold text-sm text-gray-900">Amina C.</p>
-                                    <p class="text-xs text-gray-500">E-commerce Manager</p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Duplicated -->
-                        <div class="testimonial-card mb-6">
-                            <p class="text-gray-600 leading-relaxed mb-6">"Avant, on n'avait que du blabla sur le contenu vidéo. Avec ORCA, chaque vidéo a un objectif clair et des résultats mesurables."</p>
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-sm font-bold text-blue-700">TP</div>
-                                <div>
-                                    <p class="font-semibold text-sm text-gray-900">Thomas P.</p>
-                                    <p class="text-xs text-gray-500">CEO, Hëlios</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="testimonial-card mb-6">
-                            <p class="text-gray-600 leading-relaxed mb-6">"ORCA comprend vraiment ce que c'est que de scaler. Les vidéos sont pensées pour convertir, pas juste pour plaire."</p>
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center text-sm font-bold text-red-700">JR</div>
-                                <div>
-                                    <p class="font-semibold text-sm text-gray-900">Julien R.</p>
-                                    <p class="text-xs text-gray-500">Dir. Marketing, Ringside</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="testimonial-card mb-6">
-                            <p class="text-gray-600 leading-relaxed mb-6">"On a enfin une agence qui comprend les deux mondes : le créatif et la data. Les résultats parlent d'eux-mêmes."</p>
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-full bg-teal-100 flex items-center justify-center text-sm font-bold text-teal-700">AC</div>
-                                <div>
-                                    <p class="font-semibold text-sm text-gray-900">Amina C.</p>
-                                    <p class="text-xs text-gray-500">E-commerce Manager</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Column 3 (hidden on mobile + tablet) -->
-                <div class="testimonial-col flex-1 max-w-xs overflow-hidden hidden lg:block">
-                    <div class="testimonial-scroll" style="animation: scrollUp 22s linear infinite;">
-                        <div class="testimonial-card mb-6">
-                            <p class="text-gray-600 leading-relaxed mb-6">"Le ROAS qu'on a atteint avec ORCA, on le pensait impossible. L'équipe est vraiment réactive."</p>
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center text-sm font-bold text-pink-700">LM</div>
-                                <div>
-                                    <p class="font-semibold text-sm text-gray-900">Lisa M.</p>
-                                    <p class="text-xs text-gray-500">Growth Lead, Maison Lune</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="testimonial-card mb-6">
-                            <p class="text-gray-600 leading-relaxed mb-6">"Enfin une agence qui parle données autant que créativité. On sait exactement où on va."</p>
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-sm font-bold text-indigo-700">LD</div>
-                                <div>
-                                    <p class="font-semibold text-sm text-gray-900">Léa D.</p>
-                                    <p class="text-xs text-gray-500">Fondatrice, La Fée Gourmande</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="testimonial-card mb-6">
-                            <p class="text-gray-600 leading-relaxed mb-6">"Collaboration fluide, process clair, et surtout des vidéos qui convertissent. C'est rare."</p>
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-sm font-bold text-orange-700">FL</div>
-                                <div>
-                                    <p class="font-semibold text-sm text-gray-900">Frédéric L.</p>
-                                    <p class="text-xs text-gray-500">Auteur & Conférencier</p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Duplicated -->
-                        <div class="testimonial-card mb-6">
-                            <p class="text-gray-600 leading-relaxed mb-6">"Le ROAS qu'on a atteint avec ORCA, on le pensait impossible. L'équipe est vraiment réactive."</p>
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center text-sm font-bold text-pink-700">LM</div>
-                                <div>
-                                    <p class="font-semibold text-sm text-gray-900">Lisa M.</p>
-                                    <p class="text-xs text-gray-500">Growth Lead, Maison Lune</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="testimonial-card mb-6">
-                            <p class="text-gray-600 leading-relaxed mb-6">"Enfin une agence qui parle données autant que créativité. On sait exactement où on va."</p>
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-sm font-bold text-indigo-700">LD</div>
-                                <div>
-                                    <p class="font-semibold text-sm text-gray-900">Léa D.</p>
-                                    <p class="text-xs text-gray-500">Fondatrice, La Fée Gourmande</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="testimonial-card mb-6">
-                            <p class="text-gray-600 leading-relaxed mb-6">"Collaboration fluide, process clair, et surtout des vidéos qui convertissent. C'est rare."</p>
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-sm font-bold text-orange-700">FL</div>
-                                <div>
-                                    <p class="font-semibold text-sm text-gray-900">Frédéric L.</p>
-                                    <p class="text-xs text-gray-500">Auteur & Conférencier</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="flex justify-center mt-12 mb-8"><button class="btn scroll-to-booking">Prendre rendez-vous</button></div>
         </div>
     </section>
 
@@ -2196,7 +1993,7 @@
         <div class="final-cta-container" style="max-width: 900px; margin: 0 auto; position: relative; background: #FFFDF8; border-radius: 28px; padding: 60px 40px 50px; text-align: center; overflow: visible; border: 1px solid rgba(245,158,11,0.12);">
 
             <!-- Floating icons (CTA) — 1 Instagram, 1 Facebook, 1 YouTube + mini-cards stats -->
-            <div style="position: absolute; inset: -20px; pointer-events: none; overflow: visible;">
+            <div class="cta-floating-icons" style="position: absolute; inset: -20px; pointer-events: none; overflow: visible;">
                 <!-- Instagram - top left -->
                 <div style="position: absolute; top: -14px; left: 6%; width: 52px; height: 52px; background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); border-radius: 14px; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(224,68,95,0.25); animation: floatIcon1 6s ease-in-out infinite;">
                     <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
@@ -2288,8 +2085,7 @@
                     <ul class="space-y-3 text-gray-400">
                         <li><a href="#accueil" class="hover:text-amber-400 transition-colors">Accueil</a></li>
                         <li><a href="#portfolio" class="hover:text-amber-400 transition-colors">Portfolio</a></li>
-                        <li><a href="#cas" class="hover:text-amber-400 transition-colors">Études de cas</a></li>
-                        <li><a href="#avis" class="hover:text-amber-400 transition-colors">Avis clients</a></li>
+                        <li><a href="#method" class="hover:text-amber-400 transition-colors">Méthode</a></li>
                         <li><a href="#faq" class="hover:text-amber-400 transition-colors">FAQ</a></li>
                         <li><a href="#rdv" class="hover:text-amber-400 transition-colors">RDV</a></li>
                     </ul>
@@ -2300,27 +2096,14 @@
                     <h4 class="text-white text-lg font-semibold mb-6">Ressources</h4>
                     <ul class="space-y-3 text-gray-400">
                         <li><a href="#faq" class="hover:text-amber-400 transition-colors">FAQ</a></li>
-                        <li><a href="#cas" class="hover:text-amber-400 transition-colors">Cas d'études</a></li>
-                        <li class="relative">
-                            <a href="#rdv" class="hover:text-amber-400 transition-colors">Contact direct</a>
-                            <span class="absolute top-0 -right-3 w-2 h-2 rounded-full animate-pulse" style="background: #F59E0B;"></span>
-                        </li>
+                        <li><a href="#method" class="hover:text-amber-400 transition-colors">Méthode</a></li>
+                        <li><a href="portfolio.html" class="hover:text-amber-400 transition-colors">Portfolio complet</a></li>
                     </ul>
                 </div>
 
                 <!-- Contact -->
                 <div>
-                    <h4 class="text-white text-lg font-semibold mb-6">Nous contacter</h4>
-                    <ul class="space-y-4 text-gray-400">
-                        <li class="flex items-center space-x-3">
-                            <svg width="18" height="18" fill="none" stroke="#F59E0B" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                            <a href="mailto:hello@orca-agency.fr" class="hover:text-amber-400 transition-colors">hello@orca-agency.fr</a>
-                        </li>
-                        <li class="flex items-center space-x-3">
-                            <svg width="18" height="18" fill="none" stroke="#F59E0B" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-                            <span class="hover:text-amber-400 transition-colors">06 XX XX XX XX</span>
-                        </li>
-                    </ul>
+                    <a href="#rdv" class="text-white text-lg font-semibold mb-6 block hover:text-amber-400 transition-colors">Nous contacter →</a>
                     <!-- Social icons -->
                     <div class="flex space-x-5 mt-6 text-gray-400">
                         <a href="#" aria-label="Instagram" class="hover:text-amber-400 transition-colors">
@@ -2379,6 +2162,73 @@
     </footer>
 
     <script>
+        // === GTM TRACKING ===
+        window.dataLayer = window.dataLayer || [];
+
+        // Track CTA clicks: "Prendre rendez-vous" / "Réserver l'audit gratuit"
+        document.querySelectorAll('.scroll-to-booking').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const btnText = btn.textContent.trim().replace(/\s+/g, ' ');
+                const isFloating = btn.classList.contains('floating-cta');
+                const location = isFloating ? 'floating' : btn.closest('header') ? 'navbar' : btn.closest('.final-cta-section') ? 'final_cta' : btn.closest('#hero, section:first-of-type') ? 'hero' : 'page';
+                window.dataLayer.push({
+                    'event': 'cta_click',
+                    'cta_text': btnText,
+                    'cta_location': location,
+                    'cta_type': 'booking'
+                });
+            });
+        });
+
+        // Track "Voir portfolio" click
+        const portfolioBtn = document.getElementById('discover-more-btn');
+        if (portfolioBtn) {
+            portfolioBtn.addEventListener('click', () => {
+                window.dataLayer.push({
+                    'event': 'cta_click',
+                    'cta_text': 'Découvrir nos réalisations',
+                    'cta_location': 'portfolio_section',
+                    'cta_type': 'portfolio'
+                });
+            });
+        }
+
+        // Track Scheduled.so form interactions
+        window.addEventListener('message', (event) => {
+            if (event.data && typeof event.data === 'object') {
+                // Scheduled.so sends postMessage events
+                if (event.data.type === 'scheduler_booking_complete' || event.data.event === 'scheduler_booking_complete' || (event.data.type && event.data.type.includes && event.data.type.includes('booking'))) {
+                    window.dataLayer.push({
+                        'event': 'form_submission',
+                        'form_type': 'booking',
+                        'form_name': 'discovery_call'
+                    });
+                }
+                if (event.data.type === 'scheduler_step_change' || event.data.event === 'scheduler_step_change') {
+                    window.dataLayer.push({
+                        'event': 'form_interaction',
+                        'form_type': 'booking',
+                        'form_step': event.data.step || event.data.data?.step || 'unknown'
+                    });
+                }
+            }
+        });
+
+        // Track when booking section becomes visible (scroll intent)
+        const rdvObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    window.dataLayer.push({
+                        'event': 'section_view',
+                        'section_name': 'booking_form'
+                    });
+                    rdvObserver.disconnect();
+                }
+            });
+        }, { threshold: 0.3 });
+        const rdvEl = document.getElementById('rdv');
+        if (rdvEl) rdvObserver.observe(rdvEl);
+
         // Smooth scroll to booking form
         document.querySelectorAll('.scroll-to-booking').forEach(btn => {
             btn.addEventListener('click', (e) => {
@@ -2425,36 +2275,7 @@
 
         document.querySelectorAll('.section-reveal').forEach(el => observer.observe(el));
 
-        // Portfolio filter — default: show all (both buttons can be active or toggle)
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const wasActive = btn.classList.contains('pill-active');
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('pill-active'));
-                if (!wasActive) btn.classList.add('pill-active');
-                applyPortfolioFilter();
-            });
-        });
-
-        function applyPortfolioFilter() {
-            const activeBtn = document.querySelector('.filter-btn.pill-active');
-            const activeFilter = activeBtn ? activeBtn.dataset.filter : 'all';
-            document.querySelectorAll('.portfolio-item').forEach(item => {
-                const matchesFilter = (activeFilter === 'all' || item.dataset.filter === activeFilter);
-                item.style.display = matchesFilter ? 'block' : 'none';
-            });
-            // Stop all videos when filtering
-            document.querySelectorAll('.video-card.playing').forEach(card => {
-                const v = card.querySelector('video');
-                if (v) { v.pause(); v.currentTime = 0; }
-                card.classList.remove('playing');
-            });
-            // Reset scroll position
-            const scroll = document.getElementById('portfolio-scroll');
-            if (scroll) scroll.scrollLeft = 0;
-        }
-        // Default: show all (no filter active at start)
-        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('pill-active'));
-        applyPortfolioFilter();
+        // All portfolio items visible (no filter)
 
         // Preload video src on hover (buffers before click)
         document.querySelectorAll('.video-card').forEach(card => {
@@ -2472,39 +2293,71 @@
             const video = card.querySelector('video');
             if (!video) return;
 
-            // Lazy load src if not yet loaded
-            const needsLoad = !video.src && video.dataset.src;
-            if (needsLoad) {
-                video.src = video.dataset.src;
-                video.load();
-            }
-
             if (card.classList.contains('playing')) {
                 video.pause();
                 card.classList.remove('playing');
                 card.classList.remove('loading');
-            } else {
-                // Pause all other videos
-                document.querySelectorAll('.video-card.playing, .video-card.loading').forEach(other => {
-                    const ov = other.querySelector('video');
-                    if (ov) ov.pause();
-                    other.classList.remove('playing', 'loading');
-                });
+                return;
+            }
 
-                // Show loader if video not ready
-                if (video.readyState < 3) {
-                    card.classList.add('loading');
-                    video.addEventListener('canplay', function onReady() {
-                        video.removeEventListener('canplay', onReady);
-                        card.classList.remove('loading');
-                        card.classList.add('playing');
-                        video.play();
-                    });
-                    video.play().catch(() => {}); // start buffering
-                } else {
-                    video.play();
+            // Pause all other videos
+            document.querySelectorAll('.video-card.playing, .video-card.loading').forEach(other => {
+                const ov = other.querySelector('video');
+                if (ov) ov.pause();
+                other.classList.remove('playing', 'loading');
+            });
+
+            card.classList.add('loading');
+
+            // Lazy load src if not yet loaded
+            const needsLoad = video.dataset.src && !video.getAttribute('src');
+            if (needsLoad) {
+                // Remove any competing prefetch link for this video
+                document.querySelectorAll('link[rel="prefetch"]').forEach(link => {
+                    if (link.href.includes(video.dataset.src.split('/').pop())) link.remove();
+                });
+                video.removeAttribute('preload');
+                video.src = video.dataset.src;
+            } else if (video.getAttribute('preload') === 'none') {
+                video.removeAttribute('preload');
+            }
+
+            // Wait for enough data, then play
+            function startPlay() {
+                video.play().then(() => {
+                    card.classList.remove('loading');
                     card.classList.add('playing');
-                }
+                }).catch(() => {
+                    card.classList.remove('loading');
+                });
+            }
+
+            if (video.readyState >= 2) {
+                // Already have metadata + some frames — play immediately
+                startPlay();
+            } else {
+                // Not ready yet — wait for canplay event
+                const onCanPlay = () => {
+                    video.removeEventListener('canplay', onCanPlay);
+                    video.removeEventListener('error', onError);
+                    clearTimeout(timeout);
+                    startPlay();
+                };
+                const onError = () => {
+                    video.removeEventListener('canplay', onCanPlay);
+                    video.removeEventListener('error', onError);
+                    clearTimeout(timeout);
+                    card.classList.remove('loading');
+                };
+                // Safety timeout: after 20s, try playing anyway
+                const timeout = setTimeout(() => {
+                    video.removeEventListener('canplay', onCanPlay);
+                    video.removeEventListener('error', onError);
+                    startPlay();
+                }, 20000);
+                video.addEventListener('canplay', onCanPlay);
+                video.addEventListener('error', onError);
+                video.load();
             }
         }
 
@@ -2518,18 +2371,19 @@
             btn.querySelector('.unmuted-icon').style.display = video.muted ? 'none' : 'block';
         }
 
-        // Intersection Observer: preload poster images early + prefetch video for visible cards
+        // Intersection Observer: preload only the first 2 visible videos (avoid bandwidth saturation)
+        let prefetchCount = 0;
         const videoPreloadObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
+                if (entry.isIntersecting && prefetchCount < 2) {
                     const video = entry.target.querySelector('video');
-                    if (video && video.dataset.src && !video.src) {
-                        // Prefetch video in background via link preload
+                    if (video && video.dataset.src && !video.getAttribute('src')) {
                         const link = document.createElement('link');
                         link.rel = 'prefetch';
                         link.href = video.dataset.src;
                         link.as = 'video';
                         document.head.appendChild(link);
+                        prefetchCount++;
                     }
                     videoPreloadObserver.unobserve(entry.target);
                 }
@@ -2632,15 +2486,14 @@
 
         if (tlFill && tlContainer && tlSteps.length > 0) {
             window.addEventListener('scroll', () => {
-                const section = tlContainer.closest('section');
-                if (!section) return;
-                const top = section.offsetTop;
-                const height = section.offsetHeight;
-                const scroll = window.scrollY + window.innerHeight;
-                const pct = Math.max(0, Math.min((scroll - top) / height, 1)) * 100;
-                tlFill.style.height = pct + '%';
-
                 const vh = window.innerHeight;
+                const containerRect = tlContainer.getBoundingClientRect();
+                const containerTop = containerRect.top + window.scrollY;
+
+                // Find the last active dot and compute fill height to that dot
+                let lastActiveDotBottom = 0;
+                let hasActiveInTransition = false;
+
                 tlSteps.forEach(step => {
                     const card = step.querySelector('.tl-card');
                     const dot = step.querySelector('.tl-dot');
@@ -2653,10 +2506,16 @@
                     const enterLine = vh * 0.9;
 
                     if (cardCenter < sweetSpot) {
-                        // Past the sweet spot — stay fully visible (no fade-out on scroll-up)
+                        // Past the sweet spot — stay fully visible
                         card.style.opacity = '1';
                         card.classList.add('visible', 'active');
-                        if (dot) dot.classList.add('active');
+                        if (dot) {
+                            dot.classList.add('active');
+                            // Track the position of this dot relative to the container
+                            const dotRect = dot.getBoundingClientRect();
+                            const dotCenter = dotRect.top + dotRect.height / 2 + window.scrollY - containerTop;
+                            if (dotCenter > lastActiveDotBottom) lastActiveDotBottom = dotCenter;
+                        }
                     } else if (cardCenter < enterLine) {
                         // In the transition zone — progressive opacity from 0.25 to 1
                         const rawProgress = 1 - (cardCenter - sweetSpot) / (enterLine - sweetSpot);
@@ -2667,10 +2526,23 @@
                         card.classList.add('visible');
                         if (opacity > 0.85) {
                             card.classList.add('active');
-                            if (dot) dot.classList.add('active');
+                            if (dot) {
+                                dot.classList.add('active');
+                                const dotRect = dot.getBoundingClientRect();
+                                const dotCenter = dotRect.top + dotRect.height / 2 + window.scrollY - containerTop;
+                                if (dotCenter > lastActiveDotBottom) lastActiveDotBottom = dotCenter;
+                            }
                         } else {
                             card.classList.remove('active');
                             if (dot) dot.classList.remove('active');
+                            // For in-transition dots, extend line partially toward next dot
+                            if (dot && progress > 0.1) {
+                                hasActiveInTransition = true;
+                                const dotRect = dot.getBoundingClientRect();
+                                const dotCenter = dotRect.top + dotRect.height / 2 + window.scrollY - containerTop;
+                                const partialHeight = lastActiveDotBottom + (dotCenter - lastActiveDotBottom) * progress;
+                                if (partialHeight > lastActiveDotBottom) lastActiveDotBottom = partialHeight;
+                            }
                         }
                     } else {
                         // Below viewport — base dimmed state
@@ -2679,6 +2551,15 @@
                         if (dot) dot.classList.remove('active');
                     }
                 });
+
+                // Set the fill height to reach exactly the last active dot
+                const containerHeight = tlContainer.offsetHeight;
+                if (containerHeight > 0 && lastActiveDotBottom > 0) {
+                    const fillPct = Math.min((lastActiveDotBottom / containerHeight) * 100, 100);
+                    tlFill.style.height = fillPct + '%';
+                } else {
+                    tlFill.style.height = '0%';
+                }
             }, { passive: true });
         }
 

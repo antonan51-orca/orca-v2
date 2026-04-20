@@ -3,3 +3,4 @@ Vidéos Clients/
 *.tsx
 *.docx
 videos/
+.vercel
