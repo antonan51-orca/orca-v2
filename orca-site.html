@@ -797,6 +797,28 @@
             }
         }
 
+        /* Tablet / narrow desktop — disable sticky two-column to avoid bleed into next section */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .qual-layout {
+                flex-direction: column !important;
+                gap: 1.5rem !important;
+                height: auto !important;
+                padding: 3rem 1.5rem !important;
+            }
+            .qual-sticky-left {
+                position: static !important;
+                width: 100% !important;
+                text-align: center;
+                padding: 0 0 1rem;
+            }
+            .qual-cards-col {
+                gap: 1.25rem !important;
+            }
+            .qual-scroll-card {
+                opacity: 1 !important;
+            }
+        }
+
         .qualification-card:hover {
             transform: translateY(-4px);
             box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
